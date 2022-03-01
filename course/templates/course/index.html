@@ -1,0 +1,105 @@
+{% extends 'course/base.html' %}
+
+{% block css %}
+.carousel-control-next,
+.carousel-control-prev {
+    top: auto;
+    bottom: auto;
+}
+
+.col-md-3 img {
+width: 100%;
+height: 200px;
+}
+{% endblock %}
+
+{% block title %} Course Home {% endblock %}
+
+{% block body %}
+{% load static %}
+
+
+<div class="container">
+    <br>
+    <!--    slideshow starts here -->
+    {% for course, range, nSlides in allCourses %} 
+        <h3 class="my-4">{{course.0.category}}</h3>
+        <div class="boxDesign carousel slide my-3" data-bs-ride="carousel" id="courseControl{{forloop.counter}}">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        {% for i in course %}
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="card" style="width: 18rem;">
+                                <img alt="..." class="card-img-top img-fluid" src='/media/{{i.course_image}}' > 
+                                <div class="card-body">
+                                    <h5 class="card-title">{{i.course_name}}</h5>
+                                    <p class="card-text">{{i.desc|slice:"0:110"}}...</p>
+                                    <button id="course{{i.id}}" class="btn btn-color cart">Add to Cart</button>
+                                    <a href="/courseView/{{i.id}}"><button id="course{{i.id}}" class="btn btn-color">Quick View</button></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev cmn-color" data-bs-slide="prev" data-bs-target="#courseControl{{forloop.counter}}" type="button">
+            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next cmn-color" data-bs-slide="next" data-bs-target="#courseControl{{forloop.counter}}" type="button">
+            <span aria-hidden="true" class="carousel-control-next-icon"></span>
+        </button>
+    {% endfor %}
+<!--    <h1>Under Graduate Course</h1>-->
+<!--    <h1>Graduate Course</h1>-->
+<!--    <h1>Post Graduate Course</h1>-->
+</div>
+{% endblock %}
+
+{% block js %}
+<!--Javascript-->
+// Find out the cart items from localStorage 
+if(localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+}
+
+
+<!--jQuery-->
+// If the add to cart button is clicked, add/incremetn the item 
+$('.cart').click(function(){
+    var id = this.id.toString();
+
+    if(cart[id] != undefined) {
+        cart[id] = cart[id] + 1;
+    } else {
+        cart[id] = 1;
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+});
+
+
+// Add Popover to cart 
+{% comment %} var popcart = document.getElementById('popcart')
+var popover = new bootstrap.Popover(popcart)
+document.getElementById('popcart').setAttribute('data-bs-content', '<h5>Cart for your items in LeandShare</h5>'); {% endcomment %}
+
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
+document.getElementById('popcart').setAttribute('data-bs-content', '<h5>Cart</h5>');
+{% endblock %}

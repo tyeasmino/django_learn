@@ -1,0 +1,412 @@
+{% extends 'course/base.html' %}
+
+{% block css %}
+ul li {
+list-style-type: none;
+}
+{% endblock %}
+
+{% block title %} {{courses.course_name}} {% endblock %}
+
+{% block body %}
+<br>
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-4">
+      <img src='/media/{{courses.course_image}}' alt="" class="img-fluid">
+    </div>
+    <div class="col-md-8">
+      <h3 id="course-name" class="globalClass"> {{courses.course_name}} </h3>
+      <p> <b>TK. {{courses.course_price}}</b> </p>
+      <p> {{courses.desc}}</p>
+      <p id="subcategory" style="color: white;">{{courses.subcategory}}</p>
+    </div>
+  </div>
+  <div class="row" id="divOfBOU">
+    <div>
+      <h5 class="globalClass">Course Aims: </h5>
+      <ul>
+        <li>{{courses.course_aim1}}</li>
+        <li>{{courses.course_aim2}}</li>
+        <li>{{courses.course_aim3}}</li>
+        <li>{{courses.course_aim4}}</li>
+        <li>{{courses.course_aim5}}</li>
+      </ul>
+    </div>
+
+    <div class="row" id="DCSA">
+      <div>
+        <h5 class="globalClass">Program Plan</h5>
+        <p>
+          A learner should complete 35 Credits consisting of the courses listed below to receive the Diploma in Computer
+          Science and Application including a project work as part of the requirement for successful completion of the
+          diploma. <br>
+          The syllabus of the program is being revised and brought upto-date continuously. Some new courses have been
+          included in the syllabus recently. Semester wise course distribution is given below.
+        </p>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h5 class="globalClass">Details about Program</h5>
+        <table class="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Level</th>
+              <th scope="col">Graduation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Entry Criteria</th>
+              <td>HSC or Equivalent</td>
+            </tr>
+            <tr>
+              <th scope="row">Semester</th>
+              <td>03</td>
+            </tr>
+            <tr>
+              <th scope="row">Semester duration</th>
+              <td>6 Months</td>
+            </tr>
+            <tr>
+              <th scope="row">Class Duration</th>
+              <td>5 Months</td>
+            </tr>
+            <tr>
+              <th scope="row">Total Credit Hours</th>
+              <td>35 hours</td>
+            </tr>
+            <tr>
+              <th scope="row">Minimum Duration</th>
+              <td>1.5 Years</td>
+            </tr>
+            <tr>
+              <th scope="row">Maximum Duration</th>
+              <td>5 years</td>
+            </tr>
+            <tr>
+              <th scope="row">Admission Time</th>
+              <td>December</td>
+            </tr>
+            <tr>
+              <th scope="row">Semester duration</th>
+              <td>6 Months</td>
+            </tr>
+            <tr>
+              <th scope="row">Class Begins</th>
+              <td>January</td>
+            </tr>
+            <tr>
+              <th scope="row">Course Fees (Each Courses)</th>
+              <td>Tk. 800.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Practical Fees</th>
+              <td>Tk. 350.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Re-exam fees (Per course))</th>
+              <td>Tk. 200.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Admission guide with form</th>
+              <td>Tk. 100.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h5 class="globalClass">Courses of the Program</h5>
+        <table class="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Course Title</th>
+              <th scope="col">Credits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Computer Basics (including designing web page)</th>
+              <td>2</td>
+            </tr>
+            <tr>
+              <th scope="row">Office Automation and MS Office</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Computer Programming (with C)</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Visual Programming</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Digital Systems and Computer Organizations</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Operating Systems</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Internet Technology and Web Designing</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Database Management System</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Graphics Design</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Microcomputer Troubleshooting</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Computer Networks</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row">Project Work</th>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th scope="row" style="text-align: center;">Total </th>
+              <td>35</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        DCSA program is a <b><span class="globalClass">35</span></b> credits program having 3 Semesters with 11 courses
+        and one Project. This program has been launched in 1998 and at 09 tutorial centers of Public
+        University/Institutions.
+      </p>
+      <div>
+        <h4 class="globalClass">Program Design</h4>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                1st Semester
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <table class="table table-responsive table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Course COde</th>
+                      <th scope="col">Name of the Courses</th>
+                      <th scope="col">Credits</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">DCSA 1201</th>
+                      <td>Computer Basics</td>
+                      <td>2</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                2nd Semester
+              </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
+                <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being
+                filled with some actual content.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                3rd Semester
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
+                <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
+                happening here in terms of content, but just filling up the space to make it look, at least at first
+                glance, a bit more representative of how this would look in a real-world application.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-categories--desktop-top-categories--rjvJV">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <a href="/fix" class="card mx-2" style="width: 18rem;">
+                <img src="https://s.udemycdn.com/home/top-categories/lohp-category-marketing-v2.jpg"
+                  srcset="https://s.udemycdn.com/home/top-categories/lohp-category-marketing-v2.jpg 1x, https://s.udemycdn.com/home/top-categories/lohp-category-marketing-2x-v2.jpg 2x">
+                <div class="card-body">
+                  <p class="card-text">Study Center</p>
+                </div>
+              </a>
+            </div>
+            <div class="col">
+              <div class="card mx-2" style="width: 18rem;">
+                <img src="https://s.udemycdn.com/home/top-categories/lohp-category-development-v2.jpg"
+                  srcset="https://s.udemycdn.com/home/top-categories/lohp-category-development-v2.jpg 1x, https://s.udemycdn.com/home/top-categories/lohp-category-development-2x-v2.jpg 2x">
+                <div class="card-body">
+                  <p class="card-text">ABC</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card mx-2" style="width: 18rem;">
+                <img src="https://s.udemycdn.com/home/top-categories/lohp-category-development-v2.jpg"
+                  srcset="https://s.udemycdn.com/home/top-categories/lohp-category-development-v2.jpg 1x, https://s.udemycdn.com/home/top-categories/lohp-category-development-2x-v2.jpg 2x">
+                <div class="card-body">
+                  <p class="card-text">XYZ</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">col</div>
+          </div>
+        </div>
+
+
+
+        <a class="top-categories--category-card--3gl2q udlite-custom-focus-visible category-card--category-card--3x2z6"
+          href="/courses/design/">
+          <div class="category-card--img-wrapper--1cgGh">
+
+          </div>
+          <div class="category-card--category-card-title--3BuKm" data-purpose="category-card-title-link">
+            <span class="udlite-heading-md udlite-focus-visible-target"> Design </span>
+          </div>
+        </a>
+
+
+
+        <a class="top-categories--category-card--3gl2q udlite-custom-focus-visible category-card--category-card--3x2z6"
+          href="/courses/marketing/">
+          <div class="category-card--img-wrapper--1cgGh">
+
+          </div>
+          <div class="category-card--category-card-title--3BuKm" data-purpose="category-card-title-link">
+            <span class="udlite-heading-md udlite-focus-visible-target">Marketing</span>
+          </div>
+        </a>
+
+        <a class="top-categories--category-card--3gl2q udlite-custom-focus-visible category-card--category-card--3x2z6"
+          href="/courses/it-and-software/">
+          <div class="category-card--img-wrapper--1cgGh">
+            <img alt="" width="300" height="300"
+              src="https://s.udemycdn.com/home/top-categories/lohp-category-it-and-software-v2.jpg"
+              srcset="https://s.udemycdn.com/home/top-categories/lohp-category-it-and-software-v2.jpg 1x, https://s.udemycdn.com/home/top-categories/lohp-category-it-and-software-2x-v2.jpg 2x">
+          </div>
+          <div class="category-card--category-card-title--3BuKm" data-purpose="category-card-title-link">
+            <span class="udlite-heading-md udlite-focus-visible-target">IT and Software</span>
+          </div>
+        </a>
+      </div>
+
+
+
+    </div>
+    <div class="row" id="BSN">
+      <div class="col-md-6 col-sm-12">
+        <table class="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Requirment</th>
+              <th scope="col">BSN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+    
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+    
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <table class="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Courses of the Program</th>
+              <th scope="col">Food</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <br> <br>
+  <div class="fb-like" data-href="http://127.0.0.1:8000/courseView/{{course.id}}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+  <br>
+  <div class="fb-comments mt-3" data-href="http://127.0.0.1:8000/courseView/{{courses.id}}" data-width="" data-numposts="5"></div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<!--Javascript-->
+<!-- This will display only for Bangladesh Open University's Courses -->
+var divOfBOU = document.getElementById("divOfBOU");
+divOfBOU.style.display = "none";
+
+if(document.getElementById('subcategory').innerText == 'BOU') {
+divOfBOU.style.display = "block";
+}
+
+<!-- This will display if my course name is DCSA -->
+var DCSA = document.getElementById("DCSA");
+DCSA.style.display = "none";
+
+if(document.getElementById('course-name').innerText == 'DCSA') {
+DCSA.style.display = "inline-flex";
+}
+
+<!-- This will display if my course name is DCSA -->
+var BSN = document.getElementById("BSN");
+BSN.style.display = "none";
+
+if(document.getElementById('course-name').innerText == 'BSN, B. Sc in Nursing') {
+BSN.style.display = "inline-flex";
+}
+{% endblock %}

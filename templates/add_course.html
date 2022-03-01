@@ -1,0 +1,204 @@
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block title %} Add Course {% endblock %}
+
+{% block style %}
+#optionalData {
+    display: none;
+}
+.btn-color {
+    border-color: #3498db;
+    color: #3498db;
+  }
+  
+  .btn-color:hover {
+      color: #fff;
+      background-color: #3498db;
+  }
+ 
+{% endblock %}
+{% block dashboardBody %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+
+<div class="container">
+    {% if messages %}
+        {% for message in messages %} 
+        <br> 
+        <div class="alert mymsg alert-{{ message.tags }} alert-dismissible fade show mx-0" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-4">
+            <div class="wrapper add_studyCenter">
+                <h4 class="text-center alert alert-info name"> Add Course </h4>
+                <form action="/account/add_course/" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="fieldset">
+                        <h5 class="fieldset-title">Course Info</h5>                              
+                        <div class="form-group d-flex align-items-center avatar">                   
+                            <input type="file" name="c-img" class=" form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Course Name</label>
+                            <div class="">
+                                <input type="text" name="c-name" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Course Designed By</label>
+                            <div class="">
+                                <input type="text" name="c-designed-by"  class="form-control" value="{{ user.username }}"> 
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Category</label>
+                            <div class="">
+                                <input type="text" name="c-category" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Subcategory</label>
+                            <div class="">
+                                <input type="text" name="c-subcategory" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Description</label>
+                            <div class="">
+                                <input type="text" name="c-desc" class="form-control" value="">
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="fieldset mt-3 mb-3">
+                        <h5 class="fieldset-title">Course Details</h5>
+                        <div class="form-group mb-3">
+                            <label class="">Release Date</label> 
+                            <div class="">
+                                <input type="date" name="c-date" class="form-control" value="">
+                                <p class="help-block"> Month-Date-Year 
+                                    <br> <span style="color: red">***</span> In Future Released Date can not be changed
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Course Price</label>
+                            <div class="">
+                                <input type="text" name="c-price" class="form-control" value="">
+                                <p class="help-block">Your Course Price</p>
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="fieldset">
+                        <h5 class="fieldset-title">Optional Details</h5>
+                        <p> Do you want to add optional details for this course? </p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  value="yes" onclick="text(0)">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                              Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked value="no" onclick="text(1)">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                No
+                            </label>
+                        </div>
+                        <br>
+                        <div id="optionalData">
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 1</label>
+                                <div class="">
+                                    <input type="text" name="c-aim1" class="form-control" value="">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 2</label>
+                                <div class="">
+                                    <input type="text" name="c-aim2" class="form-control" value="">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 3</label>
+                                <div class="">
+                                    <input type="text" name="c-aim3" class="form-control" value="">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 4</label>
+                                <div class="">
+                                    <input type="text" name="c-aim4" class="form-control" value="">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 5</label>
+                                <div class="">
+                                    <input type="text" name="c-aim5" class="form-control" value="">                                
+                                </div>
+                            </div>
+                        </div>                            
+                    </fieldset>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                            <button class="btn btn-color" type="submit">Add Course</button>
+                        </div>
+                    </div>                            
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-7 offset-lg-1"> 
+            <div class="studyCenter_details">
+                <h4 class="text-center alert alert-info name"> Show Courses </h4>
+                <table id="datatablesSimple" class="table table-hover ">                    
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Designed By</th>
+                            <th>Category</th>                       
+                            <th>Release Date</th>                       
+                            <th>Price</th>                       
+                            <th colspan="2">Action</th>                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in course %}   
+                            <tr>
+                                <td> {{i.course_name}} </td>
+                                <td> {{i.course_designed_by}} </td>
+                                <td> {{i.category}} </td>
+                                <td> {{i.release_date}} </td>
+                                <td> {{i.course_price}} </td>
+                                <td> 
+                                    <a href="{% url 'update_course' i.id %}" class="btn btn-warning btn-sm"> Edit </a>                                    
+                                </td>                                    
+                                <td>
+                                    <form action="{% url 'delete_course' i.id %}" method="post">
+                                        {% csrf_token %} 
+                                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                                    </form> 
+                                </td>                         
+                            </tr>  
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+function text(x) {
+    if(x == 0) document.getElementById("optionalData").style.display = "block";
+    else document.getElementById("optionalData").style.display = "none";
+    return;
+}
+{% endblock %}

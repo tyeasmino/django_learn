@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ body {
+     background: #ecf0f3
+ }
+
+ .wrapper {
+     /* max-width: 600px; */
+     min-height: 500px;
+     margin: 80px auto;
+     padding: 40px 30px 30px 30px;
+     background-color: #ecf0f3;
+     border-radius: 15px;
+     box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff
+ }
+
+ .authenticationForm {
+     max-width: 600px;
+ }
+
+ .studyCenter_details {     
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff
+ }
+ .logo {
+     width: 80px;
+     margin: auto
+ }
+
+ .logo img {
+     width: 100%;
+     height: 80px;
+     object-fit: cover;
+     border-radius: 50%;
+     box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff
+ }
+
+ .wrapper .name {
+     font-weight: 600;
+     font-size: 1.4rem;
+     letter-spacing: 1.3px;
+     padding-left: 10px;
+     color: #555
+ }
+
+ .wrapper .form-field input, 
+ .wrapper .form-field select {
+     width: 100%;
+     display: block;
+     border: 1px solid #067db4;
+     border-radius: 20px;
+     outline: none;
+     background: none;
+     font-size: 1.2rem;
+     color: #666;
+     padding: 10px 15px 10px 10px
+ }
+
+
+
+ .wrapper .form-field {
+     margin-bottom: 20px;
+     border-radius: 20px;
+     box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff
+ }
+
+ .wrapper .form-field .fas {
+     color: #555
+ }
+
+ .wrapper a {
+     text-decoration: none;
+     /* font-size: 0.8rem; */
+     color: #067db4
+ }
+
+ .wrapper a:hover {
+     color: rgba(243, 136, 136, 0.911);
+     text-transform: uppercase;
+     font-weight: 900;
+ }
+
+ @media(max-width: 380px) {
+     .wrapper {
+         margin: 30px 20px;
+         padding: 40px 15px 15px 15px
+     }
+ }
+
+ .add_studyCenter input,
+ .add_studyCenter select,
+ .change_password input {
+    width: 100%;
+    display: block;
+    border: 1px solid #067db4;
+    border-radius: 20px;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 10px 15px 10px 10px;
+    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff
+}
+
+.change_password label {
+    margin-top: 15px;
+}
+
+.change_password li::before {
+        font-weight: 900;
+        /* content: "\21A0 "; */
+        content: "\21AC ";
+        /* content: "\21DD "; */
+}
+
+
+.add_studyCenter label {   
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    padding: 10px 15px 10px 10px
+}
+
+.form-check .form-check-input {
+    width: auto;    
+}
+
+ul {
+    list-style: none;
+}
+.errorlist li {
+    color: #fff;
+    background-color: #dc3545;    
+    padding: 10px;
+    border: 1px solid #dc3545;
+    border-radius: 10px;
+    margin-bottom: 2px;
+}

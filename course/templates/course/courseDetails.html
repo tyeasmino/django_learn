@@ -1,0 +1,577 @@
+{% extends 'admin.html' %}
+
+{% block style %}
+ul li {
+list-style-type: none;
+}
+.book {
+width: 100%;
+text-align: center;
+background-color: #99CC99;
+border-radius: 10px;
+}
+.book>img {
+width: 70%;
+height: 200px;
+margin: 10px;
+}
+.book>img:hover {
+cursor: pointer;
+}
+thead, tbody, tfoot, tr, td, th {
+text-align: left;
+}
+
+{% endblock %}
+
+{% block title %} {{courses.course_name}} {% endblock %}
+
+{% load  static %}
+
+{% block dashboardBody %}
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <img src='/media/{{courses.course_image}}' alt="" class="img-fluid">
+    </div>
+    <div class="col-md-8">
+      <h3 id="course-name" class="globalClass"> {{courses.course_name}} </h3>
+      <p> <b>TK. {{courses.course_price}}</b> </p>
+      <p> {{courses.desc}}</p>
+      <p id="subcategory" style="color: white;">{{courses.subcategory}}</p>
+    </div>
+  </div>
+  <br>
+  <div class="row" id="divOfBOU">
+    <div class="row" id="DCSA">
+      <h2> Check Your Required Option </h2>
+
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Instructors of the Program
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div>
+                    <h5>IST Dhaka</h5>
+                    <ul>
+                      <b>1st Year</b>
+                      <li>Couse Code: 1201 - IST_Liberty </li>
+                      <li>Couse Code: 1302 - IST_Ershad </li>
+                      <li>Couse Code: 1303 - IST_Rezanur </li>
+                      <li>Couse Code: 1304 - IST_Mamun </li>
+
+                      <b>2nd Year</b>
+                      <li>Couse Code: 2301 - IST_Ershad </li>
+                      <li>Couse Code: 2302 - IST_Mamun </li>
+                      <li>Couse Code: 2303 - IST_Mahmudul </li>
+                      <li>Couse Code: 2304 - IST_Shewly </li>
+
+                      <b>3rd Year</b>
+                      <li>Couse Code: 3301 - IST_Mahmudul </li>
+                      <li>Couse Code: 3302 - IST_Rezanur </li>
+                      <li>Couse Code: 3303 - IST_Jugal </li>
+                      <li>Couse Code: 3304 - IST_Jugal </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div>
+                    <h5>SEC Sylhet</h5>
+                    <ul>
+                      <b>1st Year</b>
+                      <li>Couse Code: 1201 - SEC_Saira </li>
+                      <li>Couse Code: 1302 - SEC_Sumaiya </li>
+                      <li>Couse Code: 1303 - SEC_Moshiur </li>
+                      <li>Couse Code: 1304 - SEC_Soma </li>
+
+                      <b>2nd Year</b>
+                      <li>Couse Code: 2301 - SEC_Saira </li>
+                      <li>Couse Code: 2302 - SEC_Moshiur </li>
+                      <li>Couse Code: 2303 - SEC_Dulal </li>
+                      <li>Couse Code: 2304 - SEC_Tanvir </li>
+
+                      <b>3rd Year</b>
+                      <li>Couse Code: 3301 - SEC_Dulal </li>
+                      <li>Couse Code: 3302 - SEC_Tanvir </li>
+                      <li>Couse Code: 3303 - SEC_Soma </li>
+                      <li>Couse Code: 3304 - SEC_Sumaiya </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Books of the Program
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="row">
+                <h5>1st Year</h5>
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c1201">CODE: DCSA 1201 <br> COMPUTER BASICS</a>
+                    <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA1201.jpg" data-bs-toggle="modal" data-bs-target="#c1201">
+                    <div class="modal fade" id="c1201" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="c1201Label">CODE: DCSA 1201 TITLE: COMPUTER BASICS</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa1201 %}                 
+                                  <tr> 
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c1302">CODE: DCSA 1302 <br> OFFICE AUTOMATION</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA1302.jpg" data-bs-toggle="modal" data-bs-target="#c1302">
+                    <div class="modal fade" id="c1302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="c1302Label">CODE: DCSA 1302 TITLE: OFFICE AUTOMATION</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa1302 %}                 
+                                  <tr>
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c1303">CODE: DCSA 1303 <br> COMPUTER PROGRAMMING</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA1303.jpg" data-bs-toggle="modal" data-bs-target="#c1303">
+                    <div class="modal fade" id="c1303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 1303 TITLE: Computer Programming</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa1303 %}                 
+                                  <tr>
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c1304">CODE: DCSA 1304 <br> VISUAL PROGRAMMING</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA1304.jpg" data-bs-toggle="modal" data-bs-target="#c1304">
+                    <div class="modal fade" id="c1304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 1304 TITLE: Visual Programming</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa1304 %}                 
+                                  <tr>
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <h5>2nd Year</h5>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c2301">CODE: DCSA 2301 <br> Digital Systems and Computer Organization</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA2301.jpg" data-bs-toggle="modal" data-bs-target="#c2301">
+                    <div class="modal fade" id="c2301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 2301 TITLE: Digital Systems and Computer Organization</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa2301 %}                 
+                                  <tr>
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c2302">CODE: DCSA 2302 <br> OPERATING SYSTEMS</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA2302.jpg" data-bs-toggle="modal" data-bs-target="#c2302">
+                    <div class="modal fade" id="c2302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 2302 TITLE: OPERATING SYSTEMS</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa2302 %}                 
+                                  <tr>
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c2303">CODE: DCSA 2303 <br> Internet Technology and Web Designing</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA2303.jpg" data-bs-toggle="modal" data-bs-target="#c2303">
+                    <div class="modal fade" id="c2303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 2303 TITLE: Internet Technology and Web Designing</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa2303 %}                 
+                                  <tr>
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c2304">CODE: DCSA 2304 <br> Database Mannagement System</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA2304.jpg" data-bs-toggle="modal" data-bs-target="#c2304">
+                    <div class="modal fade" id="c2304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 2304 TITLE: Database Mannagement System</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa2304 %}                 
+                                  <tr> 
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <h5>3rd Year</h5>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#c3301">CODE: DCSA 3301 <br> Graphics Design</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA3301.jpg" data-bs-toggle="modal" data-bs-target="#c3301">
+                    <div class="modal fade" id="c3301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">CODE: DCSA 3301 TITLE: Graphics Design</h5> 
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body"> 
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Unit No</th>
+                                  <th scope="col">Unit Name</th>
+                                  <th scope="col">Page No</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for courses in dcsa2304 %}                 
+                                  <tr> 
+                                    <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                    <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                    <td>{{ courses.book_unit_page }}</td>
+                                  </tr>
+                                {% endfor %}                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#">CODE: DCSA 3302 <br> Microcomputer Troubleshooting</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA3302.jpg">
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#">CODE: DCSA 3303 <br> Computer Netwroks</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA3303.jpg">
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <div class="book">
+                    <a href="#">CODE: DCSA 3304 <br> Previous Project Works</a> <br>
+                    <img alt="" src="..\..\static\course\img\book\DCSA3304.jpg">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+              Thinking about the Program, What can I add here
+            </button>
+          </h2>
+          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
+              <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
+              happening here in terms of content, but just filling up the space to make it look, at least at first
+              glance, a bit more representative of how this would look in a real-world application.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="BSN">
+      <div class="col-md-6 col-sm-12">
+        <table class="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Requirment</th>
+              <th scope="col">BSN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+    
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+    
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <table class="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Courses of the Program</th>
+              <th scope="col">Food</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>  
+</div>
+{% endblock %}
+
+{% block script %}
+<!--Javascript-->
+<!-- This will display only for Bangladesh Open University's Courses -->
+var divOfBOU = document.getElementById("divOfBOU");
+divOfBOU.style.display = "none";
+
+if(document.getElementById('subcategory').innerText == 'BOU') {
+divOfBOU.style.display = "block";
+}
+
+<!-- This will display if my course name is DCSA -->
+var DCSA = document.getElementById("DCSA");
+DCSA.style.display = "none";
+
+if(document.getElementById('course-name').innerText == 'DCSA') {
+DCSA.style.display = "inline-flex";
+}
+
+<!-- This will display if my course name is DCSA -->
+var BSN = document.getElementById("BSN");
+BSN.style.display = "none";
+
+if(document.getElementById('course-name').innerText == 'BSN, B. Sc in Nursing') {
+BSN.style.display = "inline-flex";
+}
+{% endblock %}

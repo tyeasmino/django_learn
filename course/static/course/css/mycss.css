@@ -1,0 +1,107 @@
+:root {
+    --color: #3498db;
+}
+
+.bodyNav {
+    background: var(--color);    
+    font-size: 20px;
+}
+
+.bodyNav #colorToggle {
+    float: right;
+    line-height: 20px;
+    font-size: 30px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.bodyNav #colorToggle:hover {
+    color: #000;
+    transition: 0.4s;
+}
+
+#colorPlate {
+    background: var(--color);
+    width: 90px;
+    position: fixed;
+    right: 5px;
+    top: 60px;
+    border-radius: 0 0 10px 10px;
+    display: none;
+}
+
+.colors {
+    list-style: none;
+    width: 25px;
+    height: 25px;
+    margin: 10px 0;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+
+#blue {
+    background: #3498db;
+}
+#red {
+    background: #e74c3c;
+}
+#purple {
+    background: #9b59b6;
+}
+#yellow {
+    background: #f1c40f;
+}
+#orange {
+    background: #e67e22;
+}
+#green {
+    background: #2ecc71;
+}
+
+.boxDesign {
+    /* margin: 20px auto 0; */
+    padding: 20px;
+    border: 2xp solid var(--color);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 var(--color), 0 6px 20px 0 var(--color);
+}
+
+.btn-color {
+  border-color: var(--color);
+  color: var(--color);
+}
+
+.btn-color:hover {
+    color: #fff;
+    background-color: var(--color);
+}
+
+.btn-cmn {
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn-cmn:hover {
+  color: var(--color);
+  background-color: #fff;
+}
+
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon {
+  background-color: var(--color);
+}
+
+
+@media (max-width: 991px) {
+    .media991 {
+        margin-top: 10px;
+    }
+}
+
+.mymsg {
+    margin-top: -8px; 
+    margin-bottom: 0px;
+}

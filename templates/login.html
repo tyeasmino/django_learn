@@ -1,0 +1,38 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block head %}
+<link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+{% endblock%}
+
+{% block title %} Login {% endblock %}
+
+{% block body %} 
+<div class="row justify-content-center">
+    <div class="wrapper authenticationForm">
+      <div class="logo"> <img src="..\..\static\course\img\logo-r.png" alt="" style="width: 100px; height: auto"> </div>
+      <div class="text-center mt-4 name"> Login </div>
+
+      <form class="p-3 mt-3" method="post">
+          {% csrf_token %}
+
+          <label for="username"> <span class="fas fa-user"></span> Username</label>
+          <div class="form-field d-flex align-items-center"> 
+            {{ form.username }}
+          </div>
+          
+          <label for="email"> <span class="fas fa-key"></span> Password</label>
+          <div class="form-field d-flex align-items-center"> 
+            {{ form.password }}
+          </div> 
+          
+        <button type="submit" class="btn btn-color mt-3"> Log In </button>
+      </form>
+      <div class="text-center fs-6"> New to LearndShare then <a href="{% url 'register' %}">Register</a> </div>
+      <div class="text-center fs-6"> Forgot your password then <a href="{% url 'password_reset' %}">Reset Password</a> </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %} {% endblock %} 

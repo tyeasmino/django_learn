@@ -1,0 +1,92 @@
+{% extends 'learner.html' %}
+{% load static %}
+
+{% block head %} 
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}">
+{% endblock%}
+
+{% block dashboardBody %} 
+<div class="container mt-4" id="app"> 
+    <div class="row justify-content-center">
+        <div class="wrapper authenticationForm">
+          <form action="" class="p-3 mt-3" method="post">
+          {% csrf_token %}
+            
+            <label><span class="fas fa-flag"></span> Country </label>
+            <div class="form-field d-flex align-items-center">       
+              <select class="form-control" name="p_country" v-model="country_selected" @change="loadDiv($event)">
+                <option v-for="(p,i) in country" :key="i" :value="p" >[[p.name]]</option> 
+              </select>  
+                 
+            </div>      
+
+            <label><span class="fas fa-map"></span> Division </label>
+            <div class="form-field d-flex align-items-center">       
+              <select class="form-control" name="p_division" v-model="division_selected" @change="loadDis($event)">
+                <option v-for="(p,i) in div" :key="i" :value="p">[[p.name]]</option> 
+              </select>       
+            </div>      
+
+            <label><span class="fas fa-solid fa-street-view"></span> District </label> 
+            <div class="form-field d-flex align-items-center">       
+              <select class="form-control" name="p_district">
+                <option v-for="(p,i) in dis" :key="i" :value="p">[[p.name]]</option> 
+              </select>       
+            </div>      
+            <button class="btn btn-color cart">Update</button>
+          </form>
+        </div>
+      </div>
+</div>
+{% endblock %}
+
+
+{% block vuejs %} 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+{% endblock %}
+
+
+{% block script %} 
+var app = new Vue({
+    el:"#app",
+    delimiters: ['[[', ']]'],
+    data:{
+        country: {{country_list|safe}},
+        division: {{division_list|safe}},
+        district: {{district_list|safe}},
+
+        country_selected: "",
+        div:[],
+
+        division_selected: "",
+        dis:[], 
+
+
+    },
+    mounted: function() {
+        console.log("Mounted");
+    },
+    methods: {
+        loadDiv(){
+            this.div=[];
+            for(let i=0; i<this.division.length; i++){
+                if(this.country_selected.name == this.division[i].country__name) {
+                    this.div.push({name:this.division[i].name});
+                }
+            }
+            this.loadDis();
+        },
+
+        loadDis(){
+            this.dis=[];
+            for(let i=0; i<this.district.length; i++){
+                if(this.division_selected.name == this.district[i].division__name) {
+                    this.dis.push({name:this.district[i].name});
+                }
+            }
+        },
+
+
+    },
+})
+{% endblock %}

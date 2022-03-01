@@ -1,0 +1,193 @@
+{% extends 'dashboardBase.html' %}
+
+{% block title %} Admin {% endblock %}
+{% block head %} {% endblock%}
+
+{% block navBrand %} 
+<a class="navbar-brand ps-3" href="/account/learner"> <img src="{{ user.user_detail.user_Profile.url }}" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px"> {{ user.username }} </a>
+{% endblock%}
+
+{% block nav %}
+<div class="nav">
+    <div class="sb-sidenav-menu-heading">Core</div>
+    <a class="nav-link" href="/account/learner">
+        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        Dashboard
+    </a>
+    <div class="sb-sidenav-menu-heading">Interface</div>
+    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+        Your Course 
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+    </a>
+    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+            <a class="nav-link" href="layout-static.html">Course 1</a>
+            <a class="nav-link" href="layout-sidenav-light.html">Course 2</a>
+        </nav>
+    </div>
+    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+        Your Task
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+    </a>
+    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                Take Assignment
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" href="login.html">Login</a>
+                    <a class="nav-link" href="register.html">Register</a>
+                    <a class="nav-link" href="password.html">Forgot Password</a>
+                </nav>
+            </div>
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                Take Quiz / CT
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" href="401.html">401 Page</a>
+                    <a class="nav-link" href="404.html">404 Page</a>
+                    <a class="nav-link" href="500.html">500 Page</a>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <div class="sb-sidenav-menu-heading">Addons</div>
+    <a class="nav-link" href="charts.html">
+        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+        Read Books
+    </a>
+    <a class="nav-link" href="{% url 'learnernotes' %}">
+        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+        Read Notes 
+    </a>
+    <a class="nav-link" href="charts.html">
+        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+        Announcements
+    </a>
+    <a class="nav-link" href="/account/learnerprofile">
+        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+        Profile View
+    </a>
+    <a class="nav-link" href="/account/pickcourse">
+        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+        Pick Course 
+    </a>
+</div>
+{% endblock %} 
+
+{% block dashboardBody %}
+<main> 
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Primary Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Warning Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Success Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Danger Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Area Chart Example {% endcomment %}
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Course You Assigned
+                    </div>
+                    <div class="card-body">  
+                        {% for centerstudy in course_bou %}                                
+                            <div class="card"> 
+                                <div class="card-body"> 
+                                    <h5 class="card-title">{{centerstudy.course_name}} <a href="/courseDetails/{{centerstudy.id}}" style="float: right"><button id="course{{i.id}}" class="btn btn-color">View Details</button></a></h5>                                        
+                                </div>
+                            </div>                                                     
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        
+            {% comment %} Study Center Details Table {% endcomment %}
+            <div class="col-xl-7">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Study Center Details
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple1">                    
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Study Center Code</th>
+                                    <th>Study Center Name</th>
+                                    <th>Location</th>                          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for centerstudy in study_center %}                
+                                    <tr>
+                                        <td> {{ centerstudy.s_course_name }} </td>
+                                        <td> {{ centerstudy.studyCenter_code }} </td>
+                                        <td> {{ centerstudy.studyCenter_name }}  </td>
+                                        <td> {{ centerstudy.studyCenter_location }}  </td>                                    
+                                    </tr>  
+                                {% endfor %}
+                              
+                                <tr>
+                                    <td colspan="2"> <a href="{% url 'add_studyCenter' %}"> <button class="btn btn-color mt-3"> Register Study Center </button> </a> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block vuejs %} {% endblock %}
+
+{% block script %} {% endblock %}

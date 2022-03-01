@@ -1,0 +1,89 @@
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block title %} Update Book {% endblock %}
+
+{% block head %} 
+<link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+{% endblock%}
+
+{% block style %} 
+.btn-color {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-color:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+ul {
+    list-style: none;
+}
+.errorlist li {
+    color: red;
+}
+#book_file-clear_id {
+    display: none
+}
+{% endblock %}
+
+{% block dashboardBody %} 
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+        <br> 
+        <div class="alert mymsg alert-{{ message.tags }} alert-dismissible fade show mx-0" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-sm-8">
+            <div class="wrapper add_studyCenter">
+                <h4 class="text-center alert alert-info name"> Update Book Information </h4>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="btn btn-color mt-4" type="submit"> Update Book </button>  
+                    <button type="button" class="btn btn-color mt-4" data-bs-toggle="modal" data-bs-target="#file"> Book File </button> 
+                    <a href="{% url 'add_books' %}" class="btn btn-color mt-4" style="float: right"> Back </a> 
+                </form>
+
+                <!-- Book File Update Modal -->
+                <div class="modal fade" id="file" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true"> 
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="signLabel">Update File Here</h5> 
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div> 
+                            <div class="modal-body"> 
+                            <form action='/account/update_bookFile/{{id}}/' method='post' enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group mb-3"> 
+                                    <label class="">Book File</label> 
+                                    <div class="">
+                                        <input type="file" name="book_file" class="form-control" value="" enctype="multipart/form-data">
+                                    </div>
+                                </div>
+                                <button class="btn btn-color mt-4" type="submit"> Update Book File </button>                     
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %} 
+
+{% endblock %} 

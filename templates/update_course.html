@@ -1,0 +1,201 @@
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block title %} Update Course {% endblock %}
+
+{% block style %}
+#optionalData {
+    display: none;
+}
+.btn-color {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-color:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+.current {
+    margin-left: 10px;
+    color: #3498db;
+}
+.current:hover {
+    color: #3498db !important; 
+}
+
+{% endblock %}
+{% block dashboardBody %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+        <br> 
+        <div class="alert mymsg alert-{{ message.tags }} alert-dismissible fade show mx-0" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center"> 
+        <div class="col-sm-8">
+            <div class="wrapper add_studyCenter">
+                <h4 class="text-center alert alert-info name"> Update Course</h4> 
+                <form action="" class="form-horizontal" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="c_id" value="{{course.id}}"> 
+                    <fieldset class="fieldset">
+                        <h5 class="fieldset-title">Course Info</h5>                              
+                        <div class="form-group d-flex align-items-center">                   
+                            Currently: <a href="/media/{{course.course_image}}"  class="current"> {{ course.course_image.name }} </a>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Course Name</label>
+                            <div class="">
+                                <input type="text" name="c_name" class="form-control" value="{{course.course_name}}">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Course Designed By</label>
+                            <div class="">
+                                <input type="text" name="c_designed_by"  class="form-control" value="{{ course.course_designed_by }}"> 
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Category</label>
+                            <div class="">
+                                <input type="text" name="c_category" class="form-control" value="{{ course.category }}">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Subcategory</label>
+                            <div class="">
+                                <input type="text" name="c_subcategory" class="form-control" value="{{ course.subcategory }}">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Description</label>
+                            <div class="">
+                                <input type="text" name="c_desc" class="form-control" value="{{ course.desc }}">
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="fieldset mt-3 mb-3">
+                        <h5 class="fieldset-title">Course Details</h5>
+                        <div class="form-group mb-3">
+                            <label class="">Release Date </label> 
+                            <div class="">
+                                <input type="text" class="form-control" disabled value="{{ course.release_date }}">             
+                                <p class="help-block"> <span style="color: red">***</span> The Released Date can not be changed
+                                </p>                   
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="">Course Price</label>
+                            <div class="">
+                                <input type="text"  name="c_price" class="form-control" value="{{ course.course_price }}">                                
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="fieldset">
+                        <h5 class="fieldset-title">Optional Details</h5>
+                        <p> Do you want to add optional details for this course? </p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  value="yes" onclick="text(0)">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                              Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked value="no" onclick="text(1)">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                No
+                            </label>
+                        </div>
+                        <br>
+                        <div id="optionalData">
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 1</label>
+                                <div class="">
+                                    <input type="text" name="c_aim1" class="form-control" value="{{course.course_aim1}}">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 2</label>
+                                <div class="">
+                                    <input type="text" name="c_aim2" class="form-control" value="{{course.course_aim2}}">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 3</label>
+                                <div class="">
+                                    <input type="text" name="c_aim3" class="form-control" value="{{course.course_aim3}}">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 4</label>
+                                <div class="">
+                                    <input type="text" name="c_aim4" class="form-control" value="{{course.course_aim4}}">                                
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="">Course Aim 5</label>
+                                <div class="">
+                                    <input type="text" name="c_aim5" class="form-control" value="{{course.course_aim5}}">                                
+                                </div>
+                            </div>
+                        </div>                            
+                    </fieldset>
+                    <hr>
+                    <div class="form-group">
+                        <div class="">
+                            <button class="btn btn-color" type="submit">Update Course</button>
+                            <button type="button" class="btn btn-color" data-bs-toggle="modal" data-bs-target="#file"> Course File </button> 
+                            <a href="{% url 'add_course' %}" class="btn btn-color" style="float: right"> Back </a> 
+                        </div>
+                    </div>                            
+                </form>
+
+                <!-- Course File Update Modal -->
+                <div class="modal fade" id="file" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true"> 
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="signLabel">Update File Here</h5> 
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div> 
+                            <div class="modal-body"> 
+                            <form action='/account/update_courseFile/{{id}}/' method='post' enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group mb-3"> 
+                                    <label class="">Course File</label> 
+                                    <div class="">
+                                        <input type="file" name="course_image" class="form-control" value="" enctype="multipart/form-data">
+                                    </div>
+                                </div>
+                                <button class="btn btn-color mt-4" type="submit"> Update Course File </button>                     
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+function text(x) {
+    if(x == 0) document.getElementById("optionalData").style.display = "block";
+    else document.getElementById("optionalData").style.display = "none";
+    return;
+}
+
+{% endblock %}

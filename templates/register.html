@@ -1,0 +1,87 @@
+{% extends 'course/base.html' %}
+{% load static %}
+
+{% block head %}
+<!-- Important for check box correct sign -->
+<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+<!-- Style -->
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}">
+{% endblock%}
+
+{% block title %} Registration {% endblock %}
+
+{% block body %} 
+
+<div class="row justify-content-center">
+  <div class="wrapper authenticationForm">
+    <div class="logo"> <img src="..\..\static\course\img\logo-r.png" alt="" style="width: 100px; height: auto"> </div>
+    <div class="text-center mt-4 name"> Registration As </div>
+    <form class="p-3 mt-3" method="post" enctype="multipart/form-data">
+      {% csrf_token %}    
+      
+      <label for="username"> <span class="fas fa-user"></span> Username</label>
+      <div class="form-field d-flex align-items-center">               
+        {{ form.username }} 
+      </div>  
+
+      <label for="email"><span class="fas fa-envelope"></span> Email</label>
+      <div class="form-field d-flex align-items-center">       
+        {{ form.email }}
+      </div> 
+
+      <label for="profile"><span class="fas fa-envelope"></span> Profile Picture</label>
+      <div class="form-field d-flex align-items-center avatar">                   
+        <input type="file" name="u-img" class=" form-control">
+      </div>
+
+      <label for="usercourse"><span class="fas fa-book"></span> Course </label>
+      <div class="form-field d-flex align-items-center">       
+        <select class="form-control" name="usercourse">
+          <option value=""> --- Select Your Course --- </option>
+          <option value="B.Sc in CSE"> BSc in CSE </option> 
+          <option value="DCSA"> DCSA </option>
+        </select>
+         {{ form.usercourse }}         
+      </div> 
+
+      <label for="contact"><span class="fas fa-phone"></span> Contact </label>
+      <div class="form-field d-flex align-items-center">       
+        <input class="form-control" name="contact">
+         {{ form.contact }}
+         
+      </div> 
+
+      <label for="password"><span class="fas fa-key"></span> Password</label>
+      <div class="form-field d-flex align-items-center">  
+        {{ form.password1 }}
+      </div> 
+
+      <label for="password"> <span class="fas fa-key"></span> confirm Password</label>
+      <div class="form-field d-flex align-items-center">      
+        {{ form.password2 }}
+      </div> 
+
+      <div class=" d-flex align-items-center mb-2">           
+        <label class="control control--checkbox mb-0">          
+          {{ form.is_learner }} <span class="caption ">Learner</span> 
+        </label>
+      </div> 
+      <div class=" d-flex align-items-center mb-2">           
+        <label class="control control--checkbox mb-0">
+          {{ form.is_instructor }} <span class="caption">Instructor</span>
+        </label>
+      </div> 
+      <span class="text-error">{{ form.errors }}</span>
+      <button class="btn btn-color cart">Register</button>
+    </form>
+    <div class="text-center fs-6"> Already Registerd? then <a href="{% url 'login_view' %}">Login</a> </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %} 
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

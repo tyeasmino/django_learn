@@ -1,0 +1,92 @@
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block title %} Add Study Center {% endblock %}
+
+{% block head %}
+<link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+{% endblock%}
+
+{% block style %} 
+.btn-color {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-color:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+ul {
+    list-style: none;
+}
+.errorlist li {
+    color: red;
+}
+
+{% endblock %}
+
+{% block dashboardBody %} 
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+        <br> 
+        <div class="alert mymsg alert-{{ message.tags }} alert-dismissible fade show mx-0" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-4">
+            <div class="wrapper add_studyCenter">
+                <h4 class="text-center alert alert-info name"> Add Study Center </h4>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <br>
+                    <button class="btn btn-color" type="submit"> Add Study Center </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-7 offset-lg-1"> 
+            <div class="studyCenter_details"> 
+                <h4 class="text-center alert alert-info name"> Show Study Center </h4>
+                <table id="datatablesSimple" class="table table-hover ">                    
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Study Center Code</th>
+                            <th>Study Center Name</th>
+                            <th>Location</th>                          
+                            <th colspan="2">Action</th>                          
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% for i in study_center %}                
+                            <tr> 
+                                <td> {{ i.s_course_name }} </td>
+                                <td> {{ i.studyCenter_code }} </td>
+                                <td> {{ i.studyCenter_name }}  </td>
+                                <td> {{ i.studyCenter_location }}  </td>                                    
+                                <td> 
+                                    <a href="{% url 'update_studycenter' i.studyCenter_code %}" class="btn btn-warning btn-sm px-3"> <i class="fas fa-eye"></i> </a>                                    
+                                </td>                                    
+                                <td>
+                                    <form action="{% url 'delete_studyCenter' i.studyCenter_code %}" method="post"> 
+                                        {% csrf_token %} 
+                                        <button type="submit" class="btn btn-danger btn-sm px-3" style="color: #000"> <i class="fas fa-trash"></i> </button>
+                                    </form> 
+                                </td> 
+                            </tr>  
+                        {% endfor %}
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div> 
+</div> 
+{% endblock %}
