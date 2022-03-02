@@ -14,8 +14,8 @@ class User_Detail(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contact_Number = models.IntegerField()
     user_Profile = models.ImageField(upload_to="user/profile", default="", null=True)
-    user_course = models.CharField(max_length=100, default="no", null=True)
-        # user_course = models.ForeignKey(Course, on_delete=models.CASCADE, default="no", blank="True")   
+    # user_course = models.CharField(max_length=100, default="no", null=True)
+    user_course = models.ForeignKey(Course, on_delete=models.CASCADE)   
     # user_Study_Center = models.ForeignKey(StudyCenter, on_delete=models.CASCADE)
 
     def __str__(self):

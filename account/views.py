@@ -24,18 +24,21 @@ UserModel = get_user_model()
 
 # Create your views here.
 
-def register(request):    
+def register(request):   
+    course = Course.objects.all()
     if request.method == 'POST':
         con = request.POST["contact"]        
         if len(request.FILES) != 0:
             profile = request.FILES['u-img']
         usercourse = request.POST["usercourse"]
+        print(usercourse)
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active=False
-            user.save()     
-            details = User_Detail(user= user, contact_Number= con, user_Profile = profile, user_course = usercourse)     
+            user.save()   
+            ucourse = Course.objects.get(pk=usercourse)
+            details = User_Detail(user= user, contact_Number= con, user_Profile = profile, user_course = ucourse)     
             details.save() 
 
             current_site = get_current_site(request)
@@ -53,13 +56,13 @@ def register(request):
             
             messages.success(request, "Your account has been created successfully!")             
             messages.info(request, "Activate your account from the mail you provided")             
-            return render(request,'register.html', {'form': form})            
+            return render(request,'register.html', {'form': form, "course": course})            
         else:
             msg = 'form is not valid'
             messages.info(request, "Your form is not valid!") 
     else: 
         form = SignUpForm()
-    return render(request,'register.html', {'form': form, 'msg': messages})
+    return render(request,'register.html', {'form': form, "course": course, 'msg': messages})
 
 def activate(request, uidb64, token):
     try: 

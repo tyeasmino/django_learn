@@ -39,11 +39,11 @@
       <label for="usercourse"><span class="fas fa-book"></span> Course </label>
       <div class="form-field d-flex align-items-center">       
         <select class="form-control" name="usercourse">
-          <option value=""> --- Select Your Course --- </option>
-          <option value="B.Sc in CSE"> BSc in CSE </option> 
-          <option value="DCSA"> DCSA </option>
+          {% for i in course %}    
+          <option value="{{i.id}}"> {{i.course_name}} </option>                          
+          {% endfor %}
         </select>
-         {{ form.usercourse }}         
+        {{ form.usercourse }}   
       </div> 
 
       <label for="contact"><span class="fas fa-phone"></span> Contact </label>
