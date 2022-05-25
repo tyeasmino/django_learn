@@ -27,7 +27,7 @@ urlpatterns = [
     path('StudyCenter/', include('StudyCenter.urls')),
     path('student/', include('student.urls')),
     path('instructor/', include('instructor.urls')),
-    # path('', include('course.urls')),
+    path('', include('course.urls')), 
     # url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
     # url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 
