@@ -1,0 +1,199 @@
+{% extends 'instructor.html' %}
+{% load static %}
+
+{% block dashboardBody %}
+<link href="{% static 'dashboard/css/manage.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="container my-4">   
+    <nav class="navbar bodyNav navbar-expand-lg navbar-light fixed-top" style="background: #fff">
+        <div class="container" style="margin-top: 50px">
+             
+            <a class="navbar-brand" href="">
+                <h3 id="course-name" class="globalClass  mt-2" style="height: 40px; width: 500px"> 
+                    {% for i in assignCourse2 %}     
+                        {{ i.term }}  - {{ i.assign_course }}                         
+                    {% endfor %}     
+                </h3>   
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                    data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="" style="color: #000">Stream</a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        {% for i in assignCourse2 %}     
+                            <a class="nav-link" href="/account/instructorCourseProvidedContent/{{i.assigned_course_id}}" style="color: #000">Provided Content</a>
+                        {% endfor %}                          
+                    </li>                      {% endcomment %}
+                    <li class="nav-item"> 
+                        {% for i in assignCourse2 %}     
+                            {% if i.assign_course == "DCSA 3304" %} 
+                                <a class="nav-link" href="/account/instructorCourseAuthorizedBook/{{i.assigned_course_id}}" style="color: #000">Project List</a>
+                            {% else %}
+                                <a class="nav-link" href="/account/instructorCourseAuthorizedBook/{{i.assigned_course_id}}" style="color: #000">Authorized Books</a>                                   
+                            {% endif %} 
+                        {% endfor %}                         
+                    </li> 
+                    
+                    <li class="nav-item">
+                        {% for i in assignCourse2 %}
+                            <a class="nav-link" href="/account/TMA-1/course-{{i.assigned_course_id}}" style="color: #000">TMA 1</a>
+                        {% endfor %}  
+                    </li>
+                    <li class="nav-item">
+                        {% for i in assignCourse2 %}
+                            <a class="nav-link" href="/account/TMA-2/course-{{i.assigned_course_id}}" style="color: #000">TMA 2</a> 
+                        {% endfor %} 
+                    </li>
+                    <li class="nav-item">
+                        {% for i in assignCourse2 %}     
+                            <a class="nav-link" href="/account/learner_list/{{i.assigned_course_id}}" style="color: #000">Learner</a>
+                        {% endfor %}  
+                    </li>
+                </ul>
+
+                <button type="button"  class="btn btn-cmn mx-2"> 
+                    <i class="fas fa-cog"  style="font-size: 20px;"></i>
+                </button>  
+            </div>        
+        </div>    
+    </nav>
+
+    <br> </br> 
+    {% if messages %}
+        {% for message in messages %}
+        <br> 
+        <div class="alert mymsg alert-{{ message.tags }} alert-dismissible fade show mx-0" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-4">
+            <div class="wrapper add_studyCenter">
+                <h4 class="text-center alert alert-info name"> Provide Content </h4>
+                {% for m in assignCourse2 %}     
+                    <form action="/account/instructorCourseContent/{{m.assigned_course_id}}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row d-none">
+                            <div class="col">
+                                <label class="">Term</label>
+                                <div class="">
+                                    {% for i in assignCourse2 %}     
+                                        <input type="text" name="p_term" readonly class="form-control" value="{{ i.term }}">                         
+                                    {% endfor %} 
+                                </div>  
+                            </div>
+                            <div class="col">
+                                <label class="">Instructor ID</label>
+                                <div class="">
+                                    <input type="text" name="p_instructor_id" readonly class="form-control" value="{{ user.username }}"> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-none">
+                            <div class="col">
+                                <label class="">Assigned Course</label>
+                                <div class="">
+                                    {% for i in assignCourse2 %}     
+                                        <input type="text" name="p_assigned_course" readonly class="form-control" value="{{ i.assign_course }}">                         
+                                    {% endfor %} 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="">Content Title</label>
+                                <div class="">   
+                                    <input type="text" name="p_title" class="form-control" value="">                         
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="">Content Description</label>
+                                <div class=""> 
+                                    <input type="text" name="p_desc" class="form-control" value="">                         
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="">Content File</label>
+                                <div class=""> 
+                                    <input type="file" name="p_file" class=" form-control">                       
+                                </div>  
+                            </div>
+                        </div>    
+                        <button class="btn btn-color mt-4" type="submit"> Add Content </button>
+                    </form>   
+                {% endfor %} 
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-7 offset-lg-1">  
+            <div class="studyCenter_details">
+                <h4 class="text-center alert alert-info name"> Show Contents </h4>
+                <table id="datatablesSimple" class="table table-hover ">                    
+                    <thead>
+                        <tr>
+                            {% comment %} <th>Term</th>
+                            <th>Instructor ID</th>
+                            <th>Assigned Course</th> {% endcomment %}
+                            <th>Content Title</th>
+                            <th>Content Description</th>
+                            {% comment %} <th>Content File</th>     {% endcomment %}
+                            <th colspan="2">Action</th>                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in assignCourse2 %}     
+                            {% comment %} {{ x.term }}  - {{ x.assign_course }} - {{ x.instructor_id }} {% endcomment %}
+
+                                {% for i in content %}   
+                                    {% if x.term == i.term  and x.assign_course == i.assigned_course  %} 
+                                        <tr>
+                                            {% comment %} <td> {{i.term}} </td>
+                                            <td> {{i.instructor_id}} </td>
+                                            <td> {{i.assigned_course}} </td>  {% endcomment %}
+                                            <td> {{i.content_title}} </td>
+                                            <td> {{i.content_desc}} </td>
+                                             {% comment %}<td> {{ i.content_file}}
+                                                <a href="/media/{{ i.content_file}}" download class="mx-4">
+                                                    <button id="" class="btn btn-color">
+                                                        <i class="fas fa-solid fa-download"></i> 
+                                                    </button>
+                                                </a> 
+                                            </td>{% endcomment %}
+                                            <td> 
+                                                <a href="/media/{{ i.content_file}}" target="_blank" class="btn btn-warning btn-sm px-3" style="color: #fff"> <i class="fas fa-eye"></i> </a>                                    
+                                                {% comment %} <a href="{% url 'update_routine' i.routine_id %}" class="btn btn-warning btn-sm px-3" style="color: #fff"> <i class="fas fa-eye"></i> </a>                                     {% endcomment %}
+                                            </td>                                    
+                                            <td> 
+                                                {% comment %} <form action="{% url 'delete_routine' i.routine_id %}" method="post">  {% endcomment %}
+                                                <form action="" method="post"> 
+                                                    {% csrf_token %} 
+                                                    <button type="submit" class="btn btn-danger btn-sm px-3"> <i class="fas fa-trash-alt"></i> </button>
+                                                </form> 
+                                            </td>                         
+                                        </tr>  
+                                    {% endif %}
+                                {% endfor %} 
+                        {% endfor %} 
+
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

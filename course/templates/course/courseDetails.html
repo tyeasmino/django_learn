@@ -7,7 +7,7 @@ list-style-type: none;
 .book {
 width: 100%;
 text-align: center;
-background-color: #99CC99;
+border: 1px solid #56BBF1;
 border-radius: 10px;
 }
 .book>img {
@@ -18,7 +18,7 @@ margin: 10px;
 .book>img:hover {
 cursor: pointer;
 }
-thead, tbody, tfoot, tr, td, th {
+thead, tbody, tfoot, tr, td, th { 
 text-align: left;
 }
 
@@ -58,51 +58,39 @@ text-align: left;
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <div class="row">
-                <div class="col-md-6 col-sm-12">
-                  <div>
-                    <h5>IST Dhaka</h5>
+                <div class="col-md-4 col-sm-12">
+                  <div> 
+                    <h5>1st Semester</h5> 
                     <ul>
-                      <b>1st Year</b>
-                      <li>Couse Code: 1201 - IST_Liberty </li>
-                      <li>Couse Code: 1302 - IST_Ershad </li>
-                      <li>Couse Code: 1303 - IST_Rezanur </li>
-                      <li>Couse Code: 1304 - IST_Mamun </li>
-
-                      <b>2nd Year</b>
-                      <li>Couse Code: 2301 - IST_Ershad </li>
-                      <li>Couse Code: 2302 - IST_Mamun </li>
-                      <li>Couse Code: 2303 - IST_Mahmudul </li>
-                      <li>Couse Code: 2304 - IST_Shewly </li>
-
-                      <b>3rd Year</b>
-                      <li>Couse Code: 3301 - IST_Mahmudul </li>
-                      <li>Couse Code: 3302 - IST_Rezanur </li>
-                      <li>Couse Code: 3303 - IST_Jugal </li>
-                      <li>Couse Code: 3304 - IST_Jugal </li>
+                      {% for i in inst %} 
+                        {% if i.year == "1st Semester"%}
+                          <li> {{i.assign_course}} - {{i.instructor_id}}  </li>
+                        {% endif %}
+                      {% endfor %} 
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                  <div>
-                    <h5>SEC Sylhet</h5>
+                <div class="col-md-4 col-sm-12">
+                  <div> 
+                    <h5>2nd Semester</h5> 
                     <ul>
-                      <b>1st Year</b>
-                      <li>Couse Code: 1201 - SEC_Saira </li>
-                      <li>Couse Code: 1302 - SEC_Sumaiya </li>
-                      <li>Couse Code: 1303 - SEC_Moshiur </li>
-                      <li>Couse Code: 1304 - SEC_Soma </li>
-
-                      <b>2nd Year</b>
-                      <li>Couse Code: 2301 - SEC_Saira </li>
-                      <li>Couse Code: 2302 - SEC_Moshiur </li>
-                      <li>Couse Code: 2303 - SEC_Dulal </li>
-                      <li>Couse Code: 2304 - SEC_Tanvir </li>
-
-                      <b>3rd Year</b>
-                      <li>Couse Code: 3301 - SEC_Dulal </li>
-                      <li>Couse Code: 3302 - SEC_Tanvir </li>
-                      <li>Couse Code: 3303 - SEC_Soma </li>
-                      <li>Couse Code: 3304 - SEC_Sumaiya </li>
+                      {% for i in inst %} 
+                        {% if i.year == "2nd Semester"%}
+                          <li> {{i.assign_course}} - {{i.instructor_id}} </li>
+                        {% endif %}
+                      {% endfor %} 
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div> 
+                    <h5>3rd Semester</h5> 
+                    <ul>
+                      {% for i in inst %} 
+                        {% if i.year == "3rd Semester"%}
+                          <li> {{i.assign_course}} - {{i.instructor_id}} </li>
+                        {% endif %}
+                      {% endfor %} 
                     </ul>
                   </div>
                 </div>
@@ -121,9 +109,9 @@ text-align: left;
             data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <div class="row">
-                <h5>1st Year</h5>
+                <h5>1st Semester</h5>
                 <div class="col-md-3 col-sm-12 mb-2">
-                  <div class="book">
+                  <div class="book px-4"> 
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c1201">CODE: DCSA 1201 <br> COMPUTER BASICS</a>
                     <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA1201.jpg" data-bs-toggle="modal" data-bs-target="#c1201">
@@ -160,7 +148,7 @@ text-align: left;
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12 mb-2">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c1302">CODE: DCSA 1302 <br> OFFICE AUTOMATION</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA1302.jpg" data-bs-toggle="modal" data-bs-target="#c1302">
                     <div class="modal fade" id="c1302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -194,9 +182,9 @@ text-align: left;
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>                
                 <div class="col-md-3 col-sm-12 mb-2">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c1303">CODE: DCSA 1303 <br> COMPUTER PROGRAMMING</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA1303.jpg" data-bs-toggle="modal" data-bs-target="#c1303">
                     <div class="modal fade" id="c1303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -232,7 +220,7 @@ text-align: left;
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12 mb-2">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c1304">CODE: DCSA 1304 <br> VISUAL PROGRAMMING</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA1304.jpg" data-bs-toggle="modal" data-bs-target="#c1304">
                     <div class="modal fade" id="c1304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -269,9 +257,9 @@ text-align: left;
                 </div>
               </div>
               <div class="row mt-4">
-                <h5>2nd Year</h5>
+                <h5>2nd Semester</h5>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c2301">CODE: DCSA 2301 <br> Digital Systems and Computer Organization</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA2301.jpg" data-bs-toggle="modal" data-bs-target="#c2301">
                     <div class="modal fade" id="c2301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -307,7 +295,7 @@ text-align: left;
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c2302">CODE: DCSA 2302 <br> OPERATING SYSTEMS</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA2302.jpg" data-bs-toggle="modal" data-bs-target="#c2302">
                     <div class="modal fade" id="c2302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -343,7 +331,7 @@ text-align: left;
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c2303">CODE: DCSA 2303 <br> Internet Technology and Web Designing</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA2303.jpg" data-bs-toggle="modal" data-bs-target="#c2303">
                     <div class="modal fade" id="c2303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -379,7 +367,7 @@ text-align: left;
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c2304">CODE: DCSA 2304 <br> Database Mannagement System</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA2304.jpg" data-bs-toggle="modal" data-bs-target="#c2304">
                     <div class="modal fade" id="c2304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -416,9 +404,9 @@ text-align: left;
                 </div>
               </div>
               <div class="row mt-4">
-                <h5>3rd Year</h5>
+                <h5>3rd Semester</h5>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#c3301">CODE: DCSA 3301 <br> Graphics Design</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA3301.jpg" data-bs-toggle="modal" data-bs-target="#c3301">
                     <div class="modal fade" id="c3301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
@@ -454,25 +442,24 @@ text-align: left;
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#">CODE: DCSA 3302 <br> Microcomputer Troubleshooting</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA3302.jpg">
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#">CODE: DCSA 3303 <br> Computer Netwroks</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA3303.jpg">
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                  <div class="book">
+                  <div class="book px-4">
                     <a href="#">CODE: DCSA 3304 <br> Previous Project Works</a> <br>
                     <img alt="" src="..\..\static\course\img\book\DCSA3304.jpg">
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

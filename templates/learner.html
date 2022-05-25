@@ -1,193 +1,1704 @@
 {% extends 'dashboardBase.html' %}
-
-{% block title %} Admin {% endblock %}
+{% load static %}
+{% block title %} Learner {% endblock %}
+{% block style %}
+.img-width {
+  width: 160px;
+  height: 200px;
+  border-radius: 5px;
+} 
+a {
+  color: #2d3436;
+}
+a:hover {
+  color: #636e72;
+}
+{% endblock %} 
 {% block head %} {% endblock%}
 
-{% block navBrand %} 
-<a class="navbar-brand ps-3" href="/account/learner"> <img src="{{ user.user_detail.user_Profile.url }}" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px"> {{ user.username }} </a>
+{% block navBrand %}
+<a class="navbar-brand ps-3" href="/account/learner" style="margin-top: 15px">
+  {% if user.user_detail.user_Profile %}
+    <img src="{{ user.user_detail.user_Profile.url }}" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px">
+  {% else %}
+    <img src="{% static 'images/user.png' %}" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px">
+  {% endif %}
+    {{ user.username }} 
+  <p style="font-size: 15px; margin-left: 55px; margin-top:-18px">{{ user.get_full_name }}</p>
+</a>
+
 {% endblock%}
 
+
 {% block nav %}
-<div class="nav">
-    <div class="sb-sidenav-menu-heading">Core</div>
-    <a class="nav-link" href="/account/learner">
-        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-        Dashboard
-    </a>
-    <div class="sb-sidenav-menu-heading">Interface</div>
-    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-        Your Course 
-        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-    </a>
-    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-        <nav class="sb-sidenav-menu-nested nav">
-            <a class="nav-link" href="layout-static.html">Course 1</a>
-            <a class="nav-link" href="layout-sidenav-light.html">Course 2</a>
-        </nav>
-    </div>
-    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-        Your Task
-        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-    </a>
-    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                Take Assignment
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-            </a>
-            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="login.html">Login</a>
-                    <a class="nav-link" href="register.html">Register</a>
-                    <a class="nav-link" href="password.html">Forgot Password</a>
-                </nav>
-            </div>
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                Take Quiz / CT
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-            </a>
-            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="401.html">401 Page</a>
-                    <a class="nav-link" href="404.html">404 Page</a>
-                    <a class="nav-link" href="500.html">500 Page</a>
-                </nav>
-            </div>
-        </nav>
-    </div>
-    <div class="sb-sidenav-menu-heading">Addons</div>
-    <a class="nav-link" href="charts.html">
-        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-        Read Books
-    </a>
-    <a class="nav-link" href="{% url 'learnernotes' %}">
-        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-        Read Notes 
-    </a>
-    <a class="nav-link" href="charts.html">
-        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-        Announcements
-    </a>
-    <a class="nav-link" href="/account/learnerprofile">
-        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-        Profile View
-    </a>
-    <a class="nav-link" href="/account/pickcourse">
-        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-        Pick Course 
-    </a>
+<div class="nav"> 
+  <div class="sb-sidenav-menu-heading">Core</div>
+  <a class="nav-link" href="/account/learner">
+    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    Dashboard
+  </a>
+  <div class="sb-sidenav-menu-heading">Interface</div>
+  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+    aria-expanded="false" aria-controls="collapseLayouts">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    Your Course
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+  </a>
+  <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+      <a class="nav-link" href="layout-static.html">Course 1</a>
+      <a class="nav-link" href="layout-sidenav-light.html">Course 2</a>
+    </nav>
+  </div>
+  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false"
+    aria-controls="collapsePages">
+    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+    Your Task
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+  </a>
+  <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+            Manage TMA
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href="login.html">TMA 1</a>
+                <a class="nav-link" href="register.html">TMA 2</a>
+            </nav>
+        </div>
+        <a class="nav-link" href="#" aria-expanded="false" aria-controls="pagesCollapseError">
+            Manage Report                 
+        </a> 
+    </nav>
+  </div> 
+  {% comment %} <div class="sb-sidenav-menu-heading">Addons</div>
+  <a class="nav-link" href="charts.html">
+    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+    Read Books
+  </a>
+  <a class="nav-link" href="{% url 'learnernotes' %}">
+    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+    Read Notes
+  </a>
+  <a class="nav-link" href="charts.html">
+    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+    Announcements
+  </a> {% endcomment %}
+  <a class="nav-link" href="/account/learnerprofile">
+    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+    Profile View
+  </a> 
+  {% comment %} <a class="nav-link" href="/account/pickcourse">
+    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+    Pick Course
+  </a> {% endcomment %}
 </div>
 {% endblock %} 
 
 {% block dashboardBody %}
 <main> 
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Dashboard</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-        <div class="row">
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white mb-4">
-                    <div class="card-body">Primary Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-warning text-white mb-4">
-                    <div class="card-body">Warning Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-body">Success Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-danger text-white mb-4">
-                    <div class="card-body">Danger Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
-                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% comment %} Area Chart Example {% endcomment %}
-        <div class="row">
-            <div class="col-xl-5">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-area me-1"></i>
-                        Course You Assigned
-                    </div>
-                    <div class="card-body">  
-                        {% for centerstudy in course_bou %}                                
-                            <div class="card"> 
-                                <div class="card-body"> 
-                                    <h5 class="card-title">{{centerstudy.course_name}} <a href="/courseDetails/{{centerstudy.id}}" style="float: right"><button id="course{{i.id}}" class="btn btn-color">View Details</button></a></h5>                                        
-                                </div>
-                            </div>                                                     
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        
-            {% comment %} Study Center Details Table {% endcomment %}
-            <div class="col-xl-7">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-bar me-1"></i>
-                        Study Center Details
-                    </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple1">                    
-                            <thead>
-                                <tr>
-                                    <th>Course Name</th>
-                                    <th>Study Center Code</th>
-                                    <th>Study Center Name</th>
-                                    <th>Location</th>                          
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for centerstudy in study_center %}                
-                                    <tr>
-                                        <td> {{ centerstudy.s_course_name }} </td>
-                                        <td> {{ centerstudy.studyCenter_code }} </td>
-                                        <td> {{ centerstudy.studyCenter_name }}  </td>
-                                        <td> {{ centerstudy.studyCenter_location }}  </td>                                    
-                                    </tr>  
-                                {% endfor %}
-                              
-                                <tr>
-                                    <td colspan="2"> <a href="{% url 'add_studyCenter' %}"> <button class="btn btn-color mt-3"> Register Study Center </button> </a> </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid px-4">
+    <div id="msg" title="IMPORTANT!" class="mt-4 rounded">
+      {% comment %} <div class="bg-secondary p-3 rounded text-white">Update Your Profile and Password!</div> {% endcomment %}
     </div>
+    <div>
+      <row class="row">
+        <h1 class="">Dashboard</h1>
+      </row>  
+    </div>
+
+    <div class="row">
+      <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white mb-4">
+          <div class="card-header">
+            <h6>Pending Task</h6>
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <strong>DCSA 1302</strong> <br>
+              TMA-01: <br>
+              TMA-02: 
+            </p>
+          </div>          
+        </div>
+      </div>      
+      <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white mb-4">
+          <div class="card-header"> 
+            <strong>Routine</strong>
+          </div>
+          <div class="card-body">
+            <table class="table text-white">
+              <thead>
+                <td> Routine Name </td>
+                <td> File </td>
+              </thead>
+              {% comment %} <tbody>
+                {% for centerstudy in dcsa_routine %}
+                <tr>
+                  <td> {{centerstudy.routine_name}} </td>
+                  <td>
+                    <a href="/media/{{ centerstudy.routine_file}}" download style="float: right">
+                      <button id="" class="btn btn-color">
+                        <i class="fas fa-solid fa-download"></i>
+                      </button>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody> {% endcomment %}
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+          <div class="card-header">
+            <h6>Notice</h6>
+          </div> 
+          <div class="card-body">
+            Registration Notice <br>
+            Exam Notice <br>
+            Result Notice  <br>            
+          </div>          
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="card text-white mb-4" style="background-color: #63cdda">
+          <div class="card-header">
+            <h6>Your Details</h6>
+          </div>
+          <div class="card-body">
+            {% for i in stu %}
+              {% if i.learner_id == user.username %}            
+                Study Center Code: <strong class="text-black"> {{i.study_center}} </strong> <br> 
+                Center Name: 
+                {% for sc in scenter %} 
+                  {% if sc.studyCenter_code == i.study_center %}
+                    <strong class="text-black"> {{ sc.studyCenter_name }}, {{ sc.studyCenter_location }} </strong> <br>
+                  {% endif %}
+                {% endfor %} 
+                {% if i.semester_03 != 0 %}
+                  Enrolled in: <strong class="text-black"> 3rd Semester </strong>, 
+                  Enrolled term: <strong class="text-black"> {{i.semester_03}} </strong>  <br> <br>
+                  
+                  Your Previous Records: <br>
+                  Enrolled in: <strong class="text-black"> 2nd semester </strong> within <strong class="text-black"> {{i.semester_02}} </strong> term & <br>
+                  Enrolled in: <strong class="text-black"> 1st semester </strong> within <strong class="text-black"> {{i.semester_01}} </strong> term
+
+                {% elif i.semester_02 != 0 %}
+                  Enrolled in: <strong class="text-black"> 2nd Semester </strong>, 
+                  Enrolled term: <strong class="text-black"> {{i.semester_02}} </strong> <br> <br>
+
+                  Your Previous Records: <hr><br>
+                  Enrolled in: <strong class="text-black"> 1st Semester </strong> within <strong class="text-black"> {{i.semester_01}} </strong> term
+
+                {% else %}
+                  Enrolled in: <strong class="text-black"> 1st Semester </strong>, 
+                  Enrolled term: <strong class="text-black"> {{i.semester_01}} </strong>
+                {% comment %} <button class="btn btn-color"> See Your Books of 1st Semester </button> {% endcomment %}
+                {% endif %}
+              {% endif %} 
+            {% endfor %}
+            <br>
+            {% comment %} style="color: #f8c291" {% endcomment %}
+            {% comment %}   {% endcomment %}
+            <b class="text-danger">Backlog</b> <br>
+            <small>DCSA1304</small>  
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    {% comment %} Get All information about assign coursed instructor {% endcomment %}
+    <div class="row mt-4">    
+      <div class=""> 
+        <h5 class="mb-4">Details of Instructor and Course based on learner's study center</h5>                
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">course study center</th>
+                <th scope="col">course instructor id</th>
+                <th scope="col">course assign course</th>
+                <th scope="col">Course term</th>
+                <th scope="col">course year</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for s in stu %}
+                {% if s.learner_id == user.username %}            
+                  {% for i in inst %} 
+                    {% if s.study_center == i.study_center %}
+                      <tr>
+                        <th scope="row">{{ i.study_center }}</a></th>
+                        <td>{{ i.instructor_id }}</td> 
+                        <td>{{ i.assign_course }}</td>
+                        <td>{{ i.term }}</td>
+                        <td>{{ i.year }}</td>
+                      </tr> 
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>      
+    </div> 
+
+    {% comment %} Find the instructor name for this course based on term, course, study center 
+    {% for s in stu %}
+      {% if s.learner_id == user.username %}            
+        {% for i in inst %} 
+          {% if s.study_center == i.study_center %}
+            {% if s.semester_02 == i.term %}
+              {% if i.assign_course == "DCSA 2301" %}
+                {% for n in name %} 
+                  {% if i.instructor_id == n.instructor_id %}
+                    {{ n.name }}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endif %}                           
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %} {% endcomment %}
+
+    {% comment %} Course Content {% endcomment %}
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Courses That You Enrolled
+      </div> 
+      <div class="card-body">
+        <div class="container"> 
+          <div class="row"> 
+            {% for s in stu %}   
+              {% if s.learner_id == user.username %}
+                {% if s.semester_03 != 0 %}  
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Now you are enrolled in <strong>3rd Semester!</strong> {{s.name}}. See Your Books In Below:
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <br>
+
+                  {% comment %} 3rd year books {% endcomment %}
+                  <div class="row"> 
+                    <h5 class="border-bottom mb-4">3rd Semester - {{s.semester_03}}</h5> 
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3301" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c3301">CODE: DCSA 3301 <br> Graphics Design</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA3301.jpg" data-bs-toggle="modal" data-bs-target="#c3301" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3301" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c3301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 3301 TITLE: Graphics Design</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2304 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3302" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                          <div class="book px-4">
+                            <a href="#">CODE: DCSA 3302 <br> Microcomputer Troubleshooting</a> <br>
+                            <img alt="" src="..\..\static\course\img\book\DCSA3302.jpg" class="img-width">
+                            <br>
+                            
+                            {% for i in inst %} 
+                            {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                              {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3302" %} 
+                                <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                              {% endif %}                           
+                            {% endfor %} 
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b>
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3303" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                          <div class="book px-4">
+                            <a href="#">CODE: DCSA 3303 <br> Computer Netwroks</a> <br>
+                            <img alt="" src="..\..\static\course\img\book\DCSA3303.jpg" class="img-width">
+                            <br>
+                            
+                            {% for i in inst %} 
+                              {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3303" %} 
+                                <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                              {% endif %}                           
+                            {% endfor %} 
+
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3304" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                          <div class="book px-4">
+                            <a href="#">CODE: DCSA 3304 <br> Previous Project Works</a> <br>
+                            <img alt="" src="..\..\static\course\img\book\DCSA3304.jpg" data-bs-toggle="modal" data-bs-target="" class="img-width">
+                            <br>
+                            
+                            {% for i in inst %} 
+                              {% if s.study_center == i.study_center and s.semester_03 == i.term and i.assign_course == "DCSA 3304" %} 
+                                <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                              {% endif %}                           
+                            {% endfor %} 
+
+                            <div class="modal fade" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content"> 
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">CODE: DCSA 3304 TITLE: Previous Project Works </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Unit No</th>
+                                          <th scope="col">Unit Name</th>
+                                          <th scope="col">Page No</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for courses in dcsa3304 %}
+                                        <tr>
+                                          <th scope="row"> <a href="/media/{{ courses.book_file}}"
+                                              download>{{courses.book_unit_no}}</a></th>
+                                          <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                          <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div> 
+
+                   {% comment %} 2nd Semester {% endcomment %}
+                  <div class="row mt-4">
+                    <h5 class="border-bottom mb-4">2nd Semester - {{s.semester_02}} </h5> 
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b>   
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2301" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %} 
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>                             
+                        </div> 
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2301">CODE: DCSA 2301 <br> Digital Systems and Computer Organization</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2301.jpg" data-bs-toggle="modal" data-bs-target="#c2301" class="img-width">
+                          <br>                                  
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2301" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+                          
+                          <div class="modal fade" id="c2301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2301 TITLE: Digital Systems and Computer Organization
+                                  </h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2301 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{courses.book_unit_no}}</a></th> 
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b>       
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2302" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %} 
+                            {% endif %}                           
+                          {% endfor %} </b> 
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2302">CODE: DCSA 2302 <br> OPERATING SYSTEMS</a>
+                          <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2302.jpg" data-bs-toggle="modal" data-bs-target="#c2302" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2302" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+                          
+                          <div class="modal fade" id="c2302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2302 TITLE: OPERATING SYSTEMS</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2302 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4"> 
+                      <div class="border border-info rounded pb-2"> 
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2303" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %} 
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div> 
+                        <div class="book px-4"> 
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2303">CODE: DCSA 2303 <br> Internet Technology and Web Designing</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2303.jpg" data-bs-toggle="modal" data-bs-target="#c2303" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2303" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c2303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2303 TITLE: Internet Technology and Web Designing</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2303 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2304" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %} 
+                            {% endif %}                           
+                          {% endfor %} </b> 
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2304">CODE: DCSA 2304 <br> Database Mannagement System</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2304.jpg" data-bs-toggle="modal" data-bs-target="#c2304" class="img-width"> 
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2304" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+                          
+                          <div class="modal fade" id="c2304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2304 TITLE: Database Mannagement System</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2304 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% comment %} 1st Semester {% endcomment %}
+                  <div class="row mt-4"> 
+                    <h5 class="border-bottom mb-4">1st Semester - {{s.semester_01}}</h5> 
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1201" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                          <div class="book px-4">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#c1201">CODE: DCSA 1201 <br> COMPUTER BASICS</a> <br>
+                            <img alt="" src="..\..\static\course\img\book\DCSA1201.jpg" data-bs-toggle="modal" data-bs-target="#c1201" class="img-width">
+                            <br>
+                            
+                            {% for i in inst %} 
+                            {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                              {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1201" %} 
+                                <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                              {% endif %}                           
+                            {% endfor %} 
+                            
+                            <div class="modal fade" id="c1201" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="c1201Label">CODE: DCSA 1201 TITLE: COMPUTER BASICS</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Unit No</th>
+                                          <th scope="col">Unit Name</th>
+                                          <th scope="col">Page No</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for courses in dcsa1201 %}
+                                        <tr>
+                                          <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                          <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                          <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1302" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1302">CODE: DCSA 1302 <br> OFFICE AUTOMATION</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1302.jpg" data-bs-toggle="modal" data-bs-target="#c1302" class="img-width"> 
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1302" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="c1302Label">CODE: DCSA 1302 TITLE: OFFICE AUTOMATION</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1302 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1303" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1303">CODE: DCSA 1303 <br> COMPUTER PROGRAMMING</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1303.jpg" data-bs-toggle="modal"
+                            data-bs-target="#c1303" class="img-width img-fluid">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1303" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 1303 TITLE: Computer Programming</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr> 
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1303 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1304" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1304">CODE: DCSA 1304 <br> VISUAL PROGRAMMING</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1304.jpg" data-bs-toggle="modal" data-bs-target="#c1304" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1304" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true"> 
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 1304 TITLE: Visual Programming</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1304 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+
+                {% elif s.semester_02 != 0 %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Now you are enrolled in <strong>2nd Semester!</strong> {{s.name}}. See Your Books In Below:
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <br> 
+
+                  {% comment %} 2nd Semester {% endcomment %}
+                  <div class="row">
+                    <h5 class="border-bottom mb-4">2nd Semester - {{s.semester_02}} </h5> 
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b>   
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2301" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %} 
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>                             
+                        </div> 
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2301">CODE: DCSA 2301 <br> Digital Systems and Computer Organization</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2301.jpg" data-bs-toggle="modal" data-bs-target="#c2301" class="img-width">
+                          <br>                                  
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2301" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+                          
+                          <div class="modal fade" id="c2301" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2301 TITLE: Digital Systems and Computer Organization
+                                  </h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2301 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{courses.book_unit_no}}</a></th> 
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b>       
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2302" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %} 
+                            {% endif %}                           
+                          {% endfor %} </b> 
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2302">CODE: DCSA 2302 <br> OPERATING SYSTEMS</a>
+                          <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2302.jpg" data-bs-toggle="modal" data-bs-target="#c2302" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2302" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+                          
+                          <div class="modal fade" id="c2302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2302 TITLE: OPERATING SYSTEMS</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2302 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4"> 
+                      <div class="border border-info rounded pb-2"> 
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2303" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %} 
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div> 
+                        <div class="book px-4"> 
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2303">CODE: DCSA 2303 <br> Internet Technology and Web Designing</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2303.jpg" data-bs-toggle="modal" data-bs-target="#c2303" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2303" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c2303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2303 TITLE: Internet Technology and Web Designing</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2303 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2304" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %} 
+                            {% endif %}                           
+                          {% endfor %} </b> 
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c2304">CODE: DCSA 2304 <br> Database Mannagement System</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA2304.jpg" data-bs-toggle="modal" data-bs-target="#c2304" class="img-width"> 
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_02 == i.term and i.assign_course == "DCSA 2304" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+                          
+                          <div class="modal fade" id="c2304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 2304 TITLE: Database Mannagement System</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa2304 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% comment %} 1st Semester {% endcomment %}
+                  <div class="row mt-4"> 
+                    <h5 class="border-bottom mb-4">1st Semester - {{s.semester_01}}</h5> 
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1201" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                          <div class="book px-4">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#c1201">CODE: DCSA 1201 <br> COMPUTER BASICS</a> <br>
+                            <img alt="" src="..\..\static\course\img\book\DCSA1201.jpg" data-bs-toggle="modal" data-bs-target="#c1201" class="img-width">
+                            <br>
+                            
+                            {% for i in inst %} 
+                            {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                              {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1201" %} 
+                                <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                              {% endif %}                           
+                            {% endfor %} 
+                            
+                            <div class="modal fade" id="c1201" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="c1201Label">CODE: DCSA 1201 TITLE: COMPUTER BASICS</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Unit No</th>
+                                          <th scope="col">Unit Name</th>
+                                          <th scope="col">Page No</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for courses in dcsa1201 %}
+                                        <tr>
+                                          <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                          <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                          <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1302" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1302">CODE: DCSA 1302 <br> OFFICE AUTOMATION</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1302.jpg" data-bs-toggle="modal" data-bs-target="#c1302" class="img-width"> 
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1302" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="c1302Label">CODE: DCSA 1302 TITLE: OFFICE AUTOMATION</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1302 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1303" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1303">CODE: DCSA 1303 <br> COMPUTER PROGRAMMING</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1303.jpg" data-bs-toggle="modal"
+                            data-bs-target="#c1303" class="img-width img-fluid">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1303" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 1303 TITLE: Computer Programming</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr> 
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1303 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1304" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1304">CODE: DCSA 1304 <br> VISUAL PROGRAMMING</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1304.jpg" data-bs-toggle="modal" data-bs-target="#c1304" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1304" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true"> 
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 1304 TITLE: Visual Programming</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1304 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+
+                {% else %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Now you are enrolled in <strong>1st Semester!</strong> {{s.name}}. See Your Books In Below:
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <br>
+
+                  {% comment %} 1st Semester {% endcomment %}
+                  <div class="row"> 
+                    <h5 class="border-bottom mb-4">1st Semester - {{s.semester_01}}</h5> 
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1201" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                          <div class="book px-4">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#c1201">CODE: DCSA 1201 <br> COMPUTER BASICS</a> <br>
+                            <img alt="" src="..\..\static\course\img\book\DCSA1201.jpg" data-bs-toggle="modal" data-bs-target="#c1201" class="img-width">
+                            <br>
+                            
+                            {% for i in inst %} 
+                            {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                              {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1201" %} 
+                                <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                              {% endif %}                           
+                            {% endfor %} 
+                            
+                            <div class="modal fade" id="c1201" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="c1201Label">CODE: DCSA 1201 TITLE: COMPUTER BASICS</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <table class="table table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Unit No</th>
+                                          <th scope="col">Unit Name</th>
+                                          <th scope="col">Page No</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for courses in dcsa1201 %}
+                                        <tr>
+                                          <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                          <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                          <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1302" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1302">CODE: DCSA 1302 <br> OFFICE AUTOMATION</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1302.jpg" data-bs-toggle="modal" data-bs-target="#c1302" class="img-width"> 
+                          <br>
+                          
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1302" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1302" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="c1302Label">CODE: DCSA 1302 TITLE: OFFICE AUTOMATION</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1302 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1303" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1303">CODE: DCSA 1303 <br> COMPUTER PROGRAMMING</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1303.jpg" data-bs-toggle="modal"
+                            data-bs-target="#c1303" class="img-width img-fluid">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1303" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1303" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 1303 TITLE: Computer Programming</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr> 
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1303 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <div class="border border-info rounded pb-2">
+                        <div class="alert alert-info" role="alert"> Instructor - <b> 
+                          {% for i in inst %} 
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1304" %} 
+                              {% for n in name %} 
+                                {% if i.instructor_id == n.instructor_id %}
+                                  {{ n.name }} 
+                                {% endif %} 
+                              {% endfor %}  
+                            {% endif %}                           
+                          {% endfor %} </b>  
+                        </div>
+                        <div class="book px-4">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#c1304">CODE: DCSA 1304 <br> VISUAL PROGRAMMING</a> <br>
+                          <img alt="" src="..\..\static\course\img\book\DCSA1304.jpg" data-bs-toggle="modal" data-bs-target="#c1304" class="img-width">
+                          <br>
+                          
+                          {% for i in inst %} 
+                          {% comment %} do this same to same again so that the loop can perform in short count {% endcomment %}
+                            {% if s.study_center == i.study_center and s.semester_01 == i.term and i.assign_course == "DCSA 1304" %} 
+                              <a href="/account/learnerCourseContent/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}"><button id="" class="btn btn-color my-2">Details of Course Content</button></a>
+                            {% endif %}                           
+                          {% endfor %} 
+
+                          <div class="modal fade" id="c1304" tabindex="-1" aria-labelledby="signLabel" aria-hidden="true"> 
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">CODE: DCSA 1304 TITLE: Visual Programming</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for courses in dcsa1304 %}
+                                      <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                  
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 {% endblock %}
 
 
 {% block vuejs %} {% endblock %}
 
-{% block script %} {% endblock %}
+{% block script %}
+var msg = document.getElementById("msg");
+
+msg.onclick = function(){
+  msg.setAttribute("style", "display: none");
+}
+
+{% endblock %}
+

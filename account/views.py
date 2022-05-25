@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.db import IntegrityError
 from .forms import SignUpForm, LoginForm
 from StudyCenter.forms import CenterCreateForm, CenterBookForm, CenterRoutineForm
-from django.contrib.auth import authenticate, login, get_user_model, update_session_auth_hash
+from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import PasswordChangeForm
@@ -9,11 +10,13 @@ from account.models import User_Detail
 from django.contrib import messages
 from course.models import Course, Contact
 from StudyCenter.models import StudyCenter, Book, Routine
+from student.models import Student, Learner, Learner_Submit_TMA1, Learner_Submit_TMA2
+from instructor.models import Instructor, Assign_Course, Provided_Content, Tutor_Marks_Assignment, Tutor_Marks_Assignment2
+from instructor.forms import Provide_Content_Form
 from area.models import Country, Division, District, Area
 from math import ceil
 import json 
 from django.core.files.storage import FileSystemStorage
-
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader  import render_to_string
@@ -31,7 +34,7 @@ def register(request):
         if len(request.FILES) != 0:
             profile = request.FILES['u-img']
         usercourse = request.POST["usercourse"]
-        print(usercourse)
+
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -87,13 +90,13 @@ def login_view(request):
     if request.method == 'POST':
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+            password = form.cleaned_data.get('password') 
             user = authenticate(username=username, password=password)
             if user is not None and user.is_admin:
                 login(request, user)
                 return redirect('admin')
             elif user is not None and user.is_learner:
-                login(request, user)
+                login(request, user) 
                 return redirect('learner')
             elif user is not None and user.is_instructor:
                 login(request, user)
@@ -139,10 +142,39 @@ def admin(request):
 
 @login_required
 def learner(request):
-    return render(request,'learner.html')
+    student = Learner.objects.all() 
+    scenter = StudyCenter.objects.all()
+    dcsa_routine = Routine.objects.filter(routine_of_the_course = 20)
+    dcsa1201 = Book.objects.filter(book_title = 'DCSA 1201 - Computer Basics')
+    dcsa1302 = Book.objects.filter(book_title = 'DCSA 1302 - Office Automation and MS Office')
+    dcsa1303 = Book.objects.filter(book_title = 'DCSA 1303 - Computer Programming (NEW)')
+    dcsa1304 = Book.objects.filter(book_title = 'DCSA 1304 - Visual Programming')
+    dcsa2301 = Book.objects.filter(book_title = 'DCSA 2301 - Digital Systems & Computer Organization')
+    dcsa2302 = Book.objects.filter(book_title = 'DCSA 2302 - Operating Systems')
+    dcsa2303 = Book.objects.filter(book_title = 'DCSA 2303 - Internet Technology and Web Designing')
+    
+    instructor = Assign_Course.objects.all()
+    name = Instructor.objects.all() 
+
+    sd = {
+        "name": name,
+        "inst": instructor, 
+        "stu": student,
+        "scenter": scenter,
+        "dcsa_routine": dcsa_routine,
+        "dcsa1201": dcsa1201,
+        "dcsa1302": dcsa1302,
+        "dcsa1303": dcsa1303,
+        "dcsa1304": dcsa1304,
+        "dcsa2301": dcsa2301,
+        "dcsa2302": dcsa2302,
+        "dcsa2303": dcsa2303
+    }
+    return render(request,'learner.html', sd)
 
 @login_required
 def instructor(request):
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
     allCourses = []
     courseCategory = Course.objects.values('course_designed_by')
    
@@ -151,8 +183,29 @@ def instructor(request):
     nSlides = n // 4 + ceil((n / 4) - (n // 4))
     allCourses.append([course, range(1, nSlides), nSlides]) 
     
-    params = {'allCourses': allCourses}
-    return render(request,'instructor.html', params)
+    dcsa1201 = Book.objects.filter(book_title = 'DCSA 1201 - Computer Basics')
+    dcsa1302 = Book.objects.filter(book_title = 'DCSA 1302 - Office Automation and MS Office')
+    dcsa1303 = Book.objects.filter(book_title = 'DCSA 1303 - Computer Programming (NEW)')
+    dcsa1304 = Book.objects.filter(book_title = 'DCSA 1304 - Visual Programming')
+    dcsa2301 = Book.objects.filter(book_title = 'DCSA 2301 - Digital Systems & Computer Organization') 
+    dcsa2302 = Book.objects.filter(book_title = 'DCSA 2302 - Operating Systems')
+    dcsa2303 = Book.objects.filter(book_title = 'DCSA 2303 - Internet Technology and Web Designing')
+    
+    
+
+    sd = {
+        'allCourses': allCourses,
+        "dcsa1201": dcsa1201,
+        "dcsa1302": dcsa1302,
+        "dcsa1303": dcsa1303,
+        "dcsa1304": dcsa1304,
+        "dcsa2301": dcsa2301,
+        "dcsa2302": dcsa2302,
+        "dcsa2303": dcsa2303,
+        "assignCourse": assignCourse
+    }
+
+    return render(request,'instructor.html', sd)
 
 @login_required
 def learnerprofile(request):
@@ -189,6 +242,187 @@ def instructorprofile(request):
     return render(request,'instructorprofile.html')
 
 @login_required
+def instructorCourseContent(request, myid):
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    
+    if request.method == "POST":
+        p_term = request.POST.get('p_term', '')
+        p_instructor_id = request.POST.get('p_instructor_id', '')
+        p_assigned_course = request.POST.get('p_assigned_course', '')
+        p_title = request.POST.get('p_title', '')
+        p_desc = request.POST.get('p_desc', '')
+        p_file = request.POST.get('p_file', '')
+
+        if len(request.FILES) != 0:
+            p_file = request.FILES['p_file'] 
+
+        course_Content = Provided_Content(term=p_term, instructor_id=p_instructor_id, assigned_course=p_assigned_course, content_title=p_title, content_desc=p_desc, content_file=p_file)
+        course_Content.save() 
+        messages.success(request, "Your content has been added successfully!")
+    
+    content = Provided_Content.objects.filter(instructor_id=request.user.username)
+    context = {
+        "content": content,     
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,   
+    } 
+    return render(request,'instructorCourseContent.html', context)
+
+@login_required
+def instructorCourseAuthorizedBook(request, myid):
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    dcsa1201 = Book.objects.filter(book_title = 'DCSA 1201 - Computer Basics')
+    dcsa1302 = Book.objects.filter(book_title = 'DCSA 1302 - Office Automation and MS Office')
+    dcsa1303 = Book.objects.filter(book_title = 'DCSA 1303 - Computer Programming (NEW)')
+    dcsa1304 = Book.objects.filter(book_title = 'DCSA 1304 - Visual Programming')
+    dcsa2301 = Book.objects.filter(book_title = 'DCSA 2301 - Digital Systems & Computer Organization') 
+    dcsa2302 = Book.objects.filter(book_title = 'DCSA 2302 - Operating Systems')
+    dcsa2303 = Book.objects.filter(book_title = 'DCSA 2303 - Internet Technology and Web Designing')
+
+
+    context = {
+        "dcsa1201": dcsa1201,
+        "dcsa1302": dcsa1302,
+        "dcsa1303": dcsa1303,
+        "dcsa1304": dcsa1304,
+        "dcsa2301": dcsa2301,
+        "dcsa2302": dcsa2302,
+        "dcsa2303": dcsa2303,
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,  
+    } 
+    return render(request,'instructorCourseAuthorizedBook.html', context)
+
+@login_required
+def instructorCourseProvidedContent(request, myid):
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    dcsa1201 = Book.objects.filter(book_title = 'DCSA 1201 - Computer Basics')
+    dcsa1302 = Book.objects.filter(book_title = 'DCSA 1302 - Office Automation and MS Office')
+    dcsa1303 = Book.objects.filter(book_title = 'DCSA 1303 - Computer Programming (NEW)')
+    dcsa1304 = Book.objects.filter(book_title = 'DCSA 1304 - Visual Programming')
+    dcsa2301 = Book.objects.filter(book_title = 'DCSA 2301 - Digital Systems & Computer Organization') 
+    dcsa2302 = Book.objects.filter(book_title = 'DCSA 2302 - Operating Systems')
+    dcsa2303 = Book.objects.filter(book_title = 'DCSA 2303 - Internet Technology and Web Designing')
+
+
+    context = {
+        "dcsa1201": dcsa1201,
+        "dcsa1302": dcsa1302,
+        "dcsa1303": dcsa1303,
+        "dcsa1304": dcsa1304,
+        "dcsa2301": dcsa2301,
+        "dcsa2302": dcsa2302,
+        "dcsa2303": dcsa2303,
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,  
+    } 
+    return render(request,'instructorCourseProvidedContent.html', context)
+
+@login_required
+def learner_list(request, myid): 
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    
+    learner = Learner.objects.all() 
+    context = { 
+        "learner": learner,     
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,   
+    } 
+    return render(request,'learner_list.html', context)
+
+@login_required
+def friends_list(request, myid): 
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    
+    learner = Learner.objects.all() 
+    context = { 
+        "learner": learner,     
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,   
+    } 
+    return render(request,'friends_list.html', context)
+
+@login_required
+def tma1(request, myid):
+    content = Tutor_Marks_Assignment.objects.filter(instructor_id=request.user.username)
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    learner = Learner.objects.all() 
+    lst1 = Learner_Submit_TMA1.objects.all() 
+
+
+    if request.method == "POST":
+        try:
+            t_term = request.POST.get('t_term', '') 
+            t_instructor_id = request.POST.get('t_instructor_id', '')
+            t_assigned_course = request.POST.get('t_assigned_course', '')
+            t_title = request.POST.get('t_title', '')
+            t_desc = request.POST.get('t_desc', '')
+            t_file = request.POST.get('t_file', '')
+            t_date = request.POST.get('t-date', '')
+
+            if len(request.FILES) != 0:
+                t_file = request.FILES['t_file'] 
+
+            tma_Content = Tutor_Marks_Assignment(term=t_term, instructor_id=t_instructor_id, assigned_course=t_assigned_course, tma_title=t_title, tma_desc=t_desc, tma_file=t_file, tma_date=t_date, tma_status=True)
+            tma_Content.save() 
+            messages.success(request, "Your TMA has been added successfully!")
+        
+        except IntegrityError: 
+            messages.info(request, "Your TMA is already exist!")
+        
+    context = {
+        "content": content, 
+        "learner": learner,       
+        "lst1": lst1,
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,    
+    } 
+    return render(request,'tma1.html', context)
+
+@login_required
+def tma2(request, myid):
+    content = Tutor_Marks_Assignment2.objects.filter(instructor_id=request.user.username)
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=myid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username)
+    learner = Learner.objects.all() 
+    lst2 = Learner_Submit_TMA2.objects.all() 
+
+    if request.method == "POST":
+        try:
+            t_term = request.POST.get('t_term', '') 
+            t_instructor_id = request.POST.get('t_instructor_id', '')
+            t_assigned_course = request.POST.get('t_assigned_course', '')
+            t_title = request.POST.get('t_title', '')
+            t_desc = request.POST.get('t_desc', '')
+            t_file = request.POST.get('t_file', '')
+            t_date = request.POST.get('t-date', '')
+
+            if len(request.FILES) != 0: 
+                t_file = request.FILES['t_file'] 
+
+            tma_Content = Tutor_Marks_Assignment2(term=t_term, instructor_id=t_instructor_id, assigned_course=t_assigned_course, tma_title=t_title, tma_desc=t_desc, tma_file=t_file, tma_date=t_date, tma_status=True)
+            tma_Content.save() 
+            messages.success(request, "Your TMA has been added successfully!")
+
+        except IntegrityError: 
+            messages.info(request, "Your TMA is already exist!")
+    
+    context = {
+        "content": content,     
+        "learner": learner, 
+        "lst2": lst2,
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,   
+    } 
+    return render(request,'tma2.html', context)
+
+@login_required
 def manageCourse(request):
     if request.method == "POST":
         # c_img = request.POST.get('c-img', '')
@@ -214,6 +448,98 @@ def manageCourse(request):
     return render(request,'manageCourse.html')
 
 @login_required
+def learnerCourseContent(request, iid, acid):
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=acid)
+    assignCourse = Assign_Course.objects.filter(instructor_id=iid)
+    content = Provided_Content.objects.filter(instructor_id=iid)
+
+    dcsa1201 = Book.objects.filter(book_title = 'DCSA 1201 - Computer Basics')
+    dcsa1302 = Book.objects.filter(book_title = 'DCSA 1302 - Office Automation and MS Office')
+    dcsa1303 = Book.objects.filter(book_title = 'DCSA 1303 - Computer Programming (NEW)')
+    dcsa1304 = Book.objects.filter(book_title = 'DCSA 1304 - Visual Programming')
+    dcsa2301 = Book.objects.filter(book_title = 'DCSA 2301 - Digital Systems & Computer Organization') 
+    dcsa2302 = Book.objects.filter(book_title = 'DCSA 2302 - Operating Systems')
+    dcsa2303 = Book.objects.filter(book_title = 'DCSA 2303 - Internet Technology and Web Designing')
+
+    context = { 
+        "dcsa1201": dcsa1201,
+        "dcsa1302": dcsa1302,
+        "dcsa1303": dcsa1303,
+        "dcsa1304": dcsa1304,
+        "dcsa2301": dcsa2301,
+        "dcsa2302": dcsa2302,
+        "dcsa2303": dcsa2303,
+        "content": content,     
+        "assignCourse": assignCourse,   
+        "assignCourse2": assignCourse2,   
+    } 
+    return render(request,'learnerCourseContent.html', context) 
+
+@login_required
+def tma1learner(request, iid, acid):
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=acid) 
+    assignCourse = Assign_Course.objects.filter(instructor_id=iid)  
+    content = Tutor_Marks_Assignment.objects.filter(instructor_id=iid) 
+    lst1 = Learner_Submit_TMA1.objects.filter(learner_id=request.user.username)
+ 
+    if request.method == "POST":
+        try:
+            l_term = request.POST.get('l_term', '') 
+            l_learner_id = request.POST.get('l_learner_id', '')
+            l_assigned_course = request.POST.get('l_assigned_course', '')            
+            l_file = request.POST.get('l_file', '')
+
+            if len(request.FILES) != 0:
+                l_file = request.FILES['l_file'] 
+
+            tma_submited = Learner_Submit_TMA1(term=l_term, learner_id=l_learner_id, assigned_course=l_assigned_course, tma_file=l_file, tma_status=True)
+            tma_submited.save() 
+            messages.success(request, "Your TMA 1 has been added successfully!") 
+        
+        except IntegrityError:  
+            messages.info(request, "Your TMA 1 is already exist!")
+        
+    context = {
+        "content": content, 
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,   
+        "lst1": lst1, 
+    } 
+    return render(request,'tma1learner.html', context)
+
+@login_required
+def tma2learner(request, iid, acid):
+    assignCourse2 = Assign_Course.objects.filter(assigned_course_id=acid) 
+    assignCourse = Assign_Course.objects.filter(instructor_id=iid)  
+    content = Tutor_Marks_Assignment2.objects.filter(instructor_id=iid) 
+    lst2 = Learner_Submit_TMA2.objects.filter(learner_id=request.user.username)
+ 
+    if request.method == "POST":
+        try:
+            l_term = request.POST.get('l_term', '') 
+            l_learner_id = request.POST.get('l_learner_id', '')
+            l_assigned_course = request.POST.get('l_assigned_course', '')            
+            l_file = request.POST.get('l_file', '')
+
+            if len(request.FILES) != 0:
+                l_file = request.FILES['l_file'] 
+
+            tma_submited = Learner_Submit_TMA2(term=l_term, learner_id=l_learner_id, assigned_course=l_assigned_course, tma_file=l_file, tma_status=True)
+            tma_submited.save() 
+            messages.success(request, "Your TMA 2 has been added successfully!") 
+        
+        except IntegrityError:  
+            messages.info(request, "Your TMA 2 is already exist!")
+        
+    context = {
+        "content": content, 
+        "assignCourse": assignCourse,  
+        "assignCourse2": assignCourse2,   
+        "lst2": lst2, 
+    } 
+    return render(request,'tma2learner.html', context)
+
+@login_required
 def handleLogout(request):
     logout(request) 
     messages.success(request, "Successfully Logged Out")
@@ -221,9 +547,11 @@ def handleLogout(request):
 
 @login_required
 def myCourses(request):
-    course = Course.objects.filter(course_designed_by = request.user.username)      
+    course = Course.objects.filter(course_designed_by = request.user.username)     
+    assignCourse = Assign_Course.objects.filter(instructor_id=request.user.username) 
     course = {       
-        "course_center": course
+        "course_center": course,
+        "assignCourse": assignCourse
     }   
     return render(request, 'myCourses.html', course)
 

@@ -24,18 +24,19 @@
       <label for="username"> <span class="fas fa-user"></span> Username</label>
       <div class="form-field d-flex align-items-center">               
         {{ form.username }} 
-      </div>  
-
+      </div>        
+      <span class="text-error">
+        {{ form.username.errors }}
+      </span> 
+     
       <label for="email"><span class="fas fa-envelope"></span> Email</label>
       <div class="form-field d-flex align-items-center">       
-        {{ form.email }}
+        {{ form.email }}        
       </div> 
-
-      <label for="profile"><span class="fas fa-envelope"></span> Profile Picture</label>
-      <div class="form-field d-flex align-items-center avatar">                   
-        <input type="file" name="u-img" class=" form-control">
-      </div>
-
+      <span class="text-error">
+        {{ form.email.errors }}
+      </span> 
+       
       <label for="usercourse"><span class="fas fa-book"></span> Course </label>
       <div class="form-field d-flex align-items-center">       
         <select class="form-control" name="usercourse">
@@ -46,22 +47,35 @@
         {{ form.usercourse }}   
       </div> 
 
+      <label for="profile"><span class="fas fa-envelope"></span> Profile Picture</label>
+      <div class="form-field d-flex align-items-center avatar">                   
+        <input type="file" name="u-img" class=" form-control">
+      </div>
+
       <label for="contact"><span class="fas fa-phone"></span> Contact </label>
       <div class="form-field d-flex align-items-center">       
-        <input class="form-control" name="contact">
-         {{ form.contact }}
-         
+        <input class="form-control" name="contact" placeholder="Enter your 11 digit contact number from (0-9)">
+         {{ form.contact }}         
       </div> 
+      <span class="text-error">
+        {{ form.contact.errors }}
+      </span>  
 
       <label for="password"><span class="fas fa-key"></span> Password</label>
       <div class="form-field d-flex align-items-center">  
         {{ form.password1 }}
       </div> 
+      <span class="text-error">
+        {{ form.password1.errors }}
+      </span> 
 
       <label for="password"> <span class="fas fa-key"></span> confirm Password</label>
       <div class="form-field d-flex align-items-center">      
         {{ form.password2 }}
       </div> 
+      <span class="text-error">
+        {{ form.password2.errors }}
+      </span>       
 
       <div class=" d-flex align-items-center mb-2">           
         <label class="control control--checkbox mb-0">          
@@ -73,7 +87,7 @@
           {{ form.is_instructor }} <span class="caption">Instructor</span>
         </label>
       </div> 
-      <span class="text-error">{{ form.errors }}</span>
+      
       <button class="btn btn-color cart">Register</button>
     </form>
     <div class="text-center fs-6"> Already Registerd? then <a href="{% url 'login_view' %}">Login</a> </div>

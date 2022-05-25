@@ -12,7 +12,17 @@ urlpatterns = [
     path('learnernotes/', views.learnernotes, name = 'learnernotes'),
     path('pickcourse/', views.pickcourse, name = 'pickcourse'),
     path('instructorprofile/', views.instructorprofile, name = 'instructorprofile'), 
-    path('manageCourse/', views.manageCourse, name = 'manageCourse'),
+    path('instructorCourseContent/<int:myid>', views.instructorCourseContent, name = 'instructorCourseContent'), 
+    path('instructorCourseAuthorizedBook/<int:myid>', views.instructorCourseAuthorizedBook, name = 'instructorCourseAuthorizedBook'), 
+    path('instructorCourseProvidedContent/<int:myid>', views.instructorCourseProvidedContent, name = 'instructorCourseProvidedContent'),
+    path('learner_list/<int:myid>', views.learner_list, name = 'learner_list'),  
+    path('friends_list/<int:myid>', views.friends_list, name = 'friends_list'),  
+    path('TMA-1/course-<int:myid>', views.tma1, name = 'TMA1'), 
+    path('TMA-2/course-<int:myid>', views.tma2, name = 'TMA2'), 
+    path('learnerCourseContent/i-<str:iid>/ac-<int:acid>', views.learnerCourseContent, name = 'learnerCourseContent'),  
+    path('TMA-1/i-<str:iid>/ac-<int:acid>', views.tma1learner, name = 'tma1learner'),   
+    path('TMA-2/i-<str:iid>/ac-<int:acid>', views.tma2learner, name = 'tma2learner'),   
+    path('manageCourse/', views.manageCourse, name = 'manageCourse'), 
     path('myCourses/', views.myCourses, name = 'myCourses'),
     path("logout/", views.handleLogout, name="handleLogout"),
 
@@ -29,6 +39,7 @@ urlpatterns = [
     path("add_books/", views.add_books, name="add_books"),
     path("add_course/", views.add_course, name="add_course"),    
     path("add_routines/", views.add_routines, name="add_routines"),  
+    
 
     # Delete Paths  
     path("delete_routine/<int:id>/", views.delete_routine, name="delete_routine"),    

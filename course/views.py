@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Course, Contact
 from StudyCenter.models import StudyCenter, Book
+from instructor.models import Assign_Course
 from math import ceil
 
 # Create your views here.
@@ -50,7 +51,8 @@ def courseView(request, myid):
     course = Course.objects.filter(id=myid)      
     return render(request, 'course/courseView.html', {'courses':course[0]})
 
-def courseDetails(request, myid):
+def courseDetails(request, myid): 
+    instructor = Assign_Course.objects.all()
     course = Course.objects.filter(id=myid)   
     dcsa1201 = Book.objects.filter(book_title = 'DCSA 1201 - Computer Basics')
     dcsa1302 = Book.objects.filter(book_title = 'DCSA 1302 - Office Automation and MS Office')
@@ -60,6 +62,7 @@ def courseDetails(request, myid):
     dcsa2302 = Book.objects.filter(book_title = 'DCSA 2302 - Operating Systems')
     dcsa2303 = Book.objects.filter(book_title = 'DCSA 2303 - Internet Technology and Web Designing')
     courses = {
+        "inst": instructor,
         "courses": course[0],
         "dcsa1201": dcsa1201,
         "dcsa1302": dcsa1302,

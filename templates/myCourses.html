@@ -22,32 +22,26 @@
    <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        Course Details
+        Course Assigned For You 
     </div>
     <div class="card-body">
         <table id="datatablesSimple">                    
             <thead>
                 <tr>
-                    <th>Course Name</th>
-                    <th>Course Designed By</th>             
-                    <th>Course Release Date</th>                            
-                    <th>Course Price</th>                            
-                    <th>Action</th>                            
+                    <th>Study Center</th>
+                    <th>Assign Course</th>                                                     
+                    <th>Term</th>                                                     
+                    <th>Year</th>                               
                 </tr>
             </thead>
             
             <tbody>
-                {% for course in course_center %}     
+                {% for i in assignCourse %}    
                 <tr>
-                    <td> {{ course.course_name }} </td>
-                    <td> {{ course.course_designed_by }} </td>
-                    <td> {{ course.release_date}} </td>
-                    <td> {{ course.course_price }} </td>
-                    <td> 
-                        <button class="btn btn-primary"> <i class="fas fa-eye"></i> View</button>
-                        <button class="btn btn-success"> <i class="fas fa-edit"></i> Edit </button>
-                        <button class="btn btn-danger"> <i class="fas fa-trash"></i> Delete </button>
-                    </td>
+                    <td> {{ i.study_center }} </td>
+                    <td> {{ i.assign_course }}  </td>                                 
+                    <td> {{ i.term }}  </td>                                 
+                    <td> {{ i.year }}  </td>  
                 </tr>         
                 {% endfor %}
             </tbody>

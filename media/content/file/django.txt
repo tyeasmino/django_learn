@@ -1,0 +1,46 @@
+3. packed with high-level standard security 
+csrf token - cross site request forgery 
+
+4. powerful toolbox & versatile number of librabies 
+
+pypy cloud like playstore or android store 
+
+5. budget development time friendly 
+mtv formate 
+
+6. spectacular tutorials & documentation 
+7. django's default administration panel 
+
+8. easy communication with database 
+orm - object relational mapper 
+
+sql - structured query language 
+
+9. popular websites built with django 
+instagram, youtube, spotify, bitbucket, dropbox, mozilla, printerest 
+
+django is expert to handle traffic 
+
+10.  tech giants using python
+google shopify netflix reddit dropbox stripe instagram 
+
+prerequisistes
+1. get comfortable with python
+2. get comfortable with django 
+
+core concepts of python
+python oop 
+django introduction
+django mvt -  model view template 
+django models - database related
+django orm - orm converts model to sql to create table in database 
+djanog forms - form 
+django templates - allows to programming 
+tenplating, in html we can programming 
+
+
+project 
+odo - erp system 
+
+
+Bangladesh Open University Programming and Career Club - BOUPCC

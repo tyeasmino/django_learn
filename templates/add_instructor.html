@@ -1,0 +1,97 @@
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block title %} Add Instructor {% endblock %}
+
+{% block head %}
+<link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+{% endblock%}
+
+{% block style %} 
+.btn-color {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-color:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+ul {
+    list-style: none;
+}
+.errorlist li {
+    color: red;
+}
+
+{% endblock %}
+
+{% block dashboardBody %} 
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+        <br> 
+        <div class="alert mymsg alert-{{ message.tags }} alert-dismissible fade show mx-0" role="alert">
+            <strong> {{ message }} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}        
+    {% endif %}
+
+    
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-4">
+            <div class="wrapper add_studyCenter">
+                <h4 class="text-center alert alert-info name"> Add Instructor By Uploading CSV File </h4>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Upload a file</label>
+                    <input type="file" name="file" class=" form-control">
+                    <button class="btn btn-color mt-4" type="submit"> Add Instructor </button>
+                </form>  <br>
+                <strong class="text-danger">****Constraint:</strong> <br> 
+                &#9755; <small class="">  The order has to be - <br> <strong>instructor_id, name, study_center, pass</strong> </small> <br>    
+                &#9755; <small class="">  instructor_id formate: join year-study center-id <br> <strong>(Example: 22-801-001)</strong></small> <br>     
+                &#9755; <small class="">  Your file has be to a  <strong>CSV(comma delimenated)</strong> file.</small>            
+            </div>            
+        </div>
+        <div class="col-md-12 col-lg-7 offset-1"> 
+            <div class="studyCenter_details"> 
+                <h4 class="text-center alert alert-info name"> Show Instructor </h4>
+                <table id="datatablesSimple" class="table table-hover ">                    
+                    <thead>
+                        <tr>
+                            <th>Instructor ID</th>
+                            <th>Name</th>
+                            <th>Study Center</th>                                                     
+                            <th colspan="">Action</th>                          
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% for i in instructor %}                
+                            <tr> 
+                                <td> {{ i.instructor_id }} </td>
+                                <td> {{ i.name }} </td>
+                                <td> {{ i.study_center }}  </td>                                 
+                                <td> 
+                                    <a href="" class="btn btn-warning btn-sm px-3"> <i class="fas fa-eye"></i> </a>                                    
+                                </td>   
+                                {% comment %}                             
+                                <td>
+                                    <form action="" method="post"> 
+                                        {% csrf_token %} 
+                                        <button type="submit" class="btn btn-danger btn-sm px-3" style="color: #000"> <i class="fas fa-trash"></i> </button>
+                                    </form> 
+                                </td>
+                                {% endcomment %}
+                            </tr>  
+                        {% endfor %}
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div> 
+</div> 
+{% endblock %}

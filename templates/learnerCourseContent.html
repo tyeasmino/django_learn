@@ -1,0 +1,415 @@
+{% extends 'learner.html' %}
+{% load static %}
+
+{% block dashboardBody %}
+<link href="{% static 'dashboard/css/manage.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'css/login-sign-up-style.css' %}"> 
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<div class="container my-4">   
+    <nav class="navbar bodyNav navbar-expand-lg navbar-light fixed-top" style="background: #fff">
+        <div class="container" style="margin-top: 50px">
+             
+            <a class="navbar-brand" href="">
+                <h3 id="course-name" class="globalClass  mt-2" style="height: 40px; width: 500px"> 
+                    {% for i in assignCourse2 %}     
+                        {{ i.term }}  - {{ i.assign_course }}                         
+                    {% endfor %}     
+                </h3>   
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                    data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="" style="color: #000">Stream</a> 
+                    </li>
+                    <li class="nav-item">
+                        {% for i in assignCourse2 %}     
+                            <a class="nav-link" href="/account/TMA-1/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}" style="color: #000">TMA 1</a>
+                        {% endfor %} 
+                    </li> 
+                    <li class="nav-item">
+                        {% for i in assignCourse2 %}     
+                            <a class="nav-link" href="/account/TMA-2/i-{{i.instructor_id}}/ac-{{i.assigned_course_id}}" style="color: #000">TMA 2</a>
+                        {% endfor %}   
+                    </li> 
+                    <li class="nav-item">
+                        {% for i in assignCourse2 %}     
+                            <a class="nav-link" href="/account/friends_list/{{i.assigned_course_id}}" style="color: #000">Learner</a>
+                        {% endfor %}  
+                    </li>
+                </ul>
+
+                <button type="button"  class="btn btn-cmn mx-2"> 
+                    <i class="fas fa-cog"  style="font-size: 20px;"></i>
+                </button>  
+            </div>        
+        </div>    
+    </nav>
+
+    <br> </br> 
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-5">  
+            <div class="studyCenter_details">
+                <h4 class="text-center alert alert-info name"> Provided Contents </h4>
+                <table class="table table-hover ">                    
+                    <thead>
+                        <tr>
+                            <th>Content Title</th> 
+                            <th>Content Description</th>
+                            <th>Action</th>                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in assignCourse2 %}     
+                                {% for i in content %}   
+                                    {% if x.term == i.term  and x.assign_course == i.assigned_course  %} 
+                                        <tr>
+                                            <td> {{i.content_title}} </td>
+                                            <td> {{i.content_desc}} </td> 
+                                            <td> 
+                                                <a href="/media/{{ i.content_file}}" target="_blank" class="btn btn-warning btn-sm px-3" style="color: #fff"> <i class="fas fa-eye"></i> </a>                                    
+                                            </td>                                                          
+                                        </tr>  
+                                    {% endif %}
+                                {% endfor %} 
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-lg-6 offset-lg-1">    
+            <div class="studyCenter_details"> 
+                {% for m in assignCourse2 %}     
+                    {% if m.assign_course == "DCSA 3304" %} 
+                        <h4 class="text-center alert alert-info name"> Previous Project List </h4> 
+                        {% for i in assignCourse2 %}    
+                            {% if i.assign_course == "DCSA 3304" %}           
+                                <div class="">
+                                    <table id="datatablesSimple" class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Learner ID</th>
+                                            <th scope="col">Learner Name</th>
+                                            <th scope="col">Project Name</th> 
+                                            <th scope="col">Project File Link</th> 
+                                        </tr>
+                                        </thead>
+                                        <tbody>                                       
+                                        <tr>
+                                            <th> 17-0-52-801-058</th>
+                                            <td> Mahtab Uddin</td>
+                                            <td> Old Book MS</td>
+                                            <td> github.com </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <th> 17-0-52-801-056</th>
+                                            <td> Johirul Islam</td>
+                                            <td> Result MS</td>
+                                            <td> github.com </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <th> 17-0-52-801-048</th>
+                                            <td> Huzzatur Rahman</td>
+                                            <td> Cafe MS</td>
+                                            <td> drive.com </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <th> 17-0-52-801-044</th>
+                                            <td> Adv. Mahadi</td>
+                                            <td> Case & Client MS </td>
+                                            <td> github.com </td>
+                                        </tr>    
+                                        <tr>
+                                            <th> 17-0-52-801-038</th>
+                                            <td> Moktar Hossain</td>
+                                            <td> School MS</td>
+                                            <td> drive.com </td>
+                                        </tr>                                        
+                                        <tr>
+                                            <th> 17-0-52-801-036</th>
+                                            <td> Omor Faruk</td>
+                                            <td> MediHelp MS </td>
+                                            <td> github.com </td>
+                                        </tr>                                       
+                                        </tbody>
+                                        {% comment %} <tbody>
+                                        {% for courses in dcsa3304 %} 
+                                        <tr>
+                                            <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                            <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                            <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody> {% endcomment %}
+                                    </table>
+                                </div>              
+                            {% endif %}
+                        {% endfor %} 
+                    {% else %} 
+                        <h4 class="text-center alert alert-info name"> Authorized Books </h4>
+                        {% for i in assignCourse2 %}    
+                            {% if i.assign_course == "DCSA 1201" %} 
+                                <div class="">                                         
+                                    <table id="datatablesSimple" class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Unit No</th>
+                                            <th scope="col">Unit Name</th>
+                                            <th scope="col">Page No</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for courses in dcsa1201 %}
+                                        <tr>
+                                            <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                            <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                            <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 1302" %} 
+                                <div class="">                  
+                                    <table id="datatablesSimple" class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Unit No</th>
+                                            <th scope="col">Unit Name</th>
+                                            <th scope="col">Page No</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for courses in dcsa1302 %}
+                                        <tr>
+                                            <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                            <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                            <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 1303" %}
+                                <div class="">                      
+                                    <table id="datatablesSimple" class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Unit No</th>
+                                            <th scope="col">Unit Name</th>
+                                            <th scope="col">Page No</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for courses in dcsa1303 %}
+                                        <tr>
+                                            <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                            <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                            <td>{{ courses.book_unit_page }}</td>
+                                            <td>
+                                                <a href="/media/{{courses.book_file}}" target="_blank" class="btn btn-warning btn-sm px-3"> <i class="fas fa-eye"></i> </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 1304" %}
+                                <div class="">
+                                    <table id="datatablesSimple" class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Unit No</th>
+                                            <th scope="col">Unit Name</th>
+                                            <th scope="col">Page No</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for courses in dcsa1304 %}
+                                        <tr>
+                                            <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                            <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                            <td>{{ courses.book_unit_page }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>                      
+                                </div> 
+                            {% elif i.assign_course == "DCSA 2301" %}
+                                <div class="">
+                                    <table id="datatablesSimple" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">Unit No</th>
+                                            <th scope="col">Unit Name</th>
+                                            <th scope="col">Page No</th>
+                                            <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for courses in dcsa2301 %}
+                                            <tr>
+                                            <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                            <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                            <td>{{ courses.book_unit_page }}</td>
+                                            <td>
+                                                <a href="/media/{{courses.book_file}}" target="_blank" class="btn btn-warning btn-sm px-3"> <i class="fas fa-eye"></i> </a>
+                                            </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>              
+                                </div>
+                            {% elif i.assign_course == "DCSA 2302" %}
+                                <div class="">
+                                <table id="datatablesSimple" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for courses in dcsa2302 %}
+                                    <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                        <td>
+                                        <a href="/media/{{ courses.book_file}}" target="_blank" class="btn btn-warning btn-sm px-3"> <i class="fas fa-eye"></i> </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 2203" %}
+                                <div class="">
+                                
+                                <table id="datatablesSimple" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for courses in dcsa2303 %}
+                                    <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>         
+                            {% elif i.assign_course == "DCSA 2304" %}
+                                <div class="">
+                                
+                                <table id="datatablesSimple" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for courses in dcsa2304 %}
+                                    <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 3301" %}
+                                <div class="">
+                                
+                                <table id="datatablesSimple" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for courses in dcsa3301 %}
+                                    <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 3302" %}
+                                <div class="">
+                                
+                                <table id="datatablesSimple" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for courses in dcsa3302 %}
+                                    <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                            {% elif i.assign_course == "DCSA 3303" %}
+                                <div class="">
+                                
+                                <table id="datatablesSimple" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Unit No</th>
+                                        <th scope="col">Unit Name</th>
+                                        <th scope="col">Page No</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for courses in dcsa3303 %}
+                                    <tr>
+                                        <th scope="row"> <a href="/media/{{ courses.book_file}}" download>{{ courses.book_unit_no }}</a></th>
+                                        <td>{{ courses.book_unit_name|slice:"0:40" }}</td>
+                                        <td>{{ courses.book_unit_page }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                       
+                            {% endif %}
+                        {% endfor %}                    
+                    {% endif %}  
+                {% endfor %}   
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

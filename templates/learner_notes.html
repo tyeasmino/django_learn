@@ -7,7 +7,15 @@
 
 {% block dashboardBody %} 
 <div class="container">
+    
     <div class="row">
+        <div class="row">
+            <form action="" method="POST" class="ui form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}} 
+                <button type="submit" class="ui button primary">Confirm</button>
+            </form>
+        </div>
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card-big-shadow">
                 <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
@@ -23,7 +31,7 @@
             <div class="card-big-shadow">
                 <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                     <div class="content">
-                        <h6 class="category">Change Password   </h6> 
+                        <h6 class="category">Change Password  done </h6> 
                         <h5 class="title"><a href="#">Change Password</a></h5>
                     </div>
                 </div> <!-- end card -->
@@ -34,7 +42,7 @@
             <div class="card-big-shadow">
                 <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                     <div class="content">
-                        <h6 class="category">Active Account   </h6> 
+                        <h6 class="category">Active Account  done </h6> 
                         <h4 class="title"><a href="#">Active Account</a></h4>
                     </div>
                 </div> <!-- end card -->
@@ -52,49 +60,6 @@
             </div>
         </div>
         
-        <div class="col-md-4 col-sm-6 content-card">
-            <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
-                    <div class="content">
-                        <h6 class="category">Upade Profile</h6>
-                        <h4 class="title"><a href="#">Upade Profile</a></h4>
-                    </div>
-                </div> <!-- end card -->
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-sm-6 content-card">
-            <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
-                    <div class="content">
-                        <h6 class="category">Choose Course </h6>
-                        <h4 class="title"><a href="#">Choose Course</a></h4>
-                    </div>
-                </div> <!-- end card -->
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-sm-6 content-card">
-            <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="purple" data-radius="none">
-                    <div class="content">
-                        <h6 class="category">Learner Side</h6>
-                        <h4 class="title"><a href="#">Learner Side</a></h4>
-                    </div>
-                </div> <!-- end card -->
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-sm-6 content-card">
-            <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="orange" data-radius="none">
-                    <div class="content">
-                        <h6 class="category">Best cards</h6>
-                        <h4 class="title"><a href="#">Verify Email</a></h4>
-                    </div>
-                </div> <!-- end card -->
-            </div>
-        </div> 
     </div>
     </div>
 {% endblock %}
